@@ -84,9 +84,9 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  users.users.matheus = {
+  users.users.kotz = {
     isNormalUser = true;
-    description = "Matheus";
+    description = "Kotz";
     extraGroups = [ "networkmanager" "wheel" ];
     #packages = with pkgs; [
     #  firefox
@@ -96,7 +96,7 @@
 
   # Enable automatic login for the user.
   services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "matheus";
+  services.xserver.displayManager.autoLogin.user = "kotz";
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -104,7 +104,6 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    firefox
     tldr
     exa
     whitesur-gtk-theme
@@ -158,4 +157,11 @@
   # Enable KVM driver
   services.spice-vdagentd.enable = true;
   services.spice-webdavd.enable = true;
+
+  # Enable the NUR
+  nixpkgs.config.packageOverrides = pkgs: {
+    nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+      inherit pkgs;
+    };
+  };
 }

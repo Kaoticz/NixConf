@@ -18,6 +18,7 @@
     "update-home" = "nix-channel --update && home-manager switch";
     "rollback-list" = "sudo nix-env -p /nix/var/nix/profiles/system --list-generations";
     "rollback-clear" = "sudo nix-collect-garbage -d";
+    "inithost" = "sudo mkdir -p /mnt/host && sudo mount -t virtiofs host-fs /mnt/host";
   };
 
   # Setup bashrc for Pantheon DE (include ble.sh)
