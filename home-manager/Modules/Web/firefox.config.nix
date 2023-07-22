@@ -73,6 +73,7 @@ in
       youtube-shorts-block
 
       ## Missing
+      # Authenticator
       # Fireshot
       # Github Download Button
       # HTTPS Everywhere

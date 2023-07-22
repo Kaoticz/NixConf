@@ -39,7 +39,9 @@
   nixpkgs.config.allowUnfree = true;
 
   # Kernel Version
-  boot.kernelPackages = pkgs.linuxPackages_latest;  
+  boot.kernelPackages = pkgs.linuxPackages_latest.extend (self: super: {
+    kernel = super.kernel // pkgs.linuxKernel.kernels.linux_zen;  # Linux Zen Kernel
+  });  
 
   # Enable CUPS to print documents.
   services.printing.enable = false;
