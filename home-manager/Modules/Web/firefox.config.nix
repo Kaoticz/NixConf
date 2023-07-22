@@ -1,6 +1,6 @@
 { pkgs, config, ... }:
 let
-  nur = (import (./nur.config.nix) { inherit pkgs; }).nur;
+  nur = (import (../Dependencies/nur.config.nix) { inherit pkgs; }).nur;
 in
 {
   # Config for Firefox's default profile.

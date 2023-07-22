@@ -17,6 +17,7 @@
       "nixconf" = "sudo nano /etc/nixos/configuration.nix";
       "update" = "sudo nix-channel --update && sudo nixos-rebuild switch";
       "update-home" = "nix-channel --update && home-manager switch";
+      "update-all" = "update && update-home";
       "rollback-list" = "sudo nix-env -p /nix/var/nix/profiles/system --list-generations";
       "rollback-clear" = "sudo nix-collect-garbage -d";
       "inithost" = "sudo mkdir -p /mnt/host && sudo mount -t virtiofs host-fs /mnt/host";

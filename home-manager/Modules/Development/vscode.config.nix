@@ -6,6 +6,7 @@
     enableUpdateCheck = false;
     extensions = with pkgs; [
       vscode-extensions.shd101wyy.markdown-preview-enhanced
+      vscode-extensions.mads-hartmann.bash-ide-vscode
       vscode-extensions.formulahendry.auto-close-tag
       vscode-extensions.ms-azuretools.vscode-docker
       vscode-extensions.ms-dotnettools.csharp
