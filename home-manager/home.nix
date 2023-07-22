@@ -23,17 +23,18 @@
 
   # Importing Modules
   imports = [
-    ./git.config.nix
-    ./vscode.config.nix
     ./bash.config.nix
     ./firefox.config.nix
+    ./git.config.nix
+    ./vscode.config.nix
   ];
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    dotnet-sdk_7	# .NET 7
-    blesh		      # ble.sh (required by bash.config.nix)
-    shellcheck    # Bash analyzer
+    blesh # ble.sh (required by bash.config.nix)
+    dotnet-sdk_7 # .NET 7
+    nixpkgs-fmt # Nix code formatter
+    shellcheck # Bash analyzer
   ];
 }
