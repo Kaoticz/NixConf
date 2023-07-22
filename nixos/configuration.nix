@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -88,11 +88,7 @@
   users.users.kotz = {
     isNormalUser = true;
     description = "Kotz";
-    extraGroups = [ "networkmanager" "wheel" ];
-    #packages = with pkgs; [
-    #  firefox
-    #  thunderbird
-    #];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
   };
 
   # Enable automatic login for the user.
@@ -157,6 +153,10 @@
   # Enable KVM driver
   services.spice-vdagentd.enable = true;
   services.spice-webdavd.enable = true;
+
+  # Enable Docker
+  virtualisation.docker.enable = true;
+  virtualisation.docker.rootless.enable = true;
 
   # Enable the NUR
   nixpkgs.config.packageOverrides = pkgs: {
