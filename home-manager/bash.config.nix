@@ -8,7 +8,7 @@
 
     # Setup aliases
     shellAliases = {
-      "homenix" = "gedit ~/.config/home-manager/home.nix & disown";
+      "homenix" = "io.elementary.code ~/.config/home-manager/home.nix & disown";
       "cleanupgennix" = "home-manager remove-generations";
       "cleanupnix" = "nix-collect-garbage && echo -e '\nUse listgennix to list generations and cleanupgennix <ids> to delete one or multiple generations.\n'";
       "listnix" = "home-manager packages";

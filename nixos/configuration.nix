@@ -106,7 +106,6 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     tldr
-    exa
     whitesur-gtk-theme
     neofetch
     appimage-run # Needed to execute AppImages

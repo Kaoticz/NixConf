@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   # Let Home Manager install and manage itself.
@@ -33,8 +33,10 @@
   # environment.
   home.packages = with pkgs; [
     blesh # ble.sh (required by bash.config.nix)
-    dotnet-sdk_7 # .NET 7
-    nixpkgs-fmt # Nix code formatter
-    shellcheck # Bash analyzer
+    dotnet-sdk_7  # .NET 7
+    exa           # "ls" replacement
+    nil           # Nix LSP server
+    nixpkgs-fmt   # Nix code formatter
+    shellcheck    # Bash analyzer
   ];
 }

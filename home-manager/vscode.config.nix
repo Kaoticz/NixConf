@@ -5,12 +5,15 @@
     enable = true;
     enableUpdateCheck = false;
     extensions = with pkgs; [
-      # vscode-extensions.ms-dotnettools.csharp
-      vscode-extensions.timonwong.shellcheck
-      vscode-extensions.formulahendry.auto-close-tag
       vscode-extensions.shd101wyy.markdown-preview-enhanced
-      vscode-extensions.b4dm4n.vscode-nixpkgs-fmt
+      vscode-extensions.formulahendry.auto-close-tag
+      vscode-extensions.ms-azuretools.vscode-docker
+      vscode-extensions.ms-dotnettools.csharp
+      vscode-extensions.timonwong.shellcheck
+      vscode-extensions.jnoortheen.nix-ide
+      vscode-extensions.eamodio.gitlens
     ];
+
     keybindings = [
       {
         "key" = "ctrl+k ctrl+o";
@@ -85,6 +88,14 @@
         "2155"
         "2001"
       ];
+      "nix.formatterPath" = "nixpkgs-fmt";
+      "nix.serverPath" = "nil";
+      "nix.enableLanguageServer" = true;
+      # Settings for 'nil' LSP
+      "nix.serverSettings.nil" = {
+        #"diagnostics.ignored" = [ "unused_binding" "unused_with" ];
+        "formatting.command" = [ "nixpkgs-fmt" ];
+      };
     };
   };
 }
