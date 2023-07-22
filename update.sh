@@ -10,6 +10,7 @@ apply_root_config()
     sudo rm /etc/nixos/configuration.nix
     sudo rm -rf /etc/nixos/Modules
     sudo cp -rv nixos/ /etc/
+    chown "$USER" nixos/*
 }
 
 # Applies the configuration for Home Manager.
