@@ -146,7 +146,7 @@
   "browser.send_pings" = false;
 
   ### DNS / DoH / PROXY / SOCKS / IPv6 ###
-  
+
   # Disable IPv6
   "network.dns.disableIPv6" = true;
 
@@ -176,7 +176,7 @@
   # 0=off by default, 2=TRR (Trusted Recursive Resolver) first, 3=TRR only, 5=explicitly off
   # See also: https://github.com/curl/curl/wiki/DNS-over-HTTPS#publicly-available-servers
   "network.trr.mode" = 3;
-  "network.ttr.uri" = "https://open.dns0.eu/";        # Required if mode is 2 or 3
+  "network.ttr.uri" = "https://open.dns0.eu/"; # Required if mode is 2 or 3
   "network.ttr.custom_uri" = "https://open.dns0.eu/"; # Required if mode is 2 or 3
 
   ### LOCATION BAR / SEARCH BAR / SUGGESTIONS / HISTORY / FORMS ###
@@ -280,8 +280,8 @@
   "security.mixed_content.block_display_content" = false;
 
   # Enable/Disable HTTPS-Only mode in all windows.
-  "dom.security.https_only_mode" = true;      # Normal browsing
-  "dom.security.https_only_mode_pbm" = true;  # Private browsing
+  "dom.security.https_only_mode" = true; # Normal browsing
+  "dom.security.https_only_mode_pbm" = true; # Private browsing
 
   # Enable/Disable HTTPS-Only mode for local resources.
   "dom.security.https_only_mode.upgrade_local" = false;
@@ -301,7 +301,7 @@
   "layout.css.font-visibility.private" = 3;
   "layout.css.font-visibility.standard" = 3;
   "layout.css.font-visibility.trackingprotection" = 3;
-  
+
   # Controls when to send a cross-origin referer.
   # May cause breakage in older routers/modems and some sites (banks, vimeo, icloud, instagram).
   # If "2" is too strict, then override to "0" and use Smart Referer extension (Strict mode + add exceptions).
@@ -344,7 +344,7 @@
   # Enable/Disable all DRM content (EME: Encryption Media Extension)
   # This breaks platforms that rely on DRM, such as Netflix, Amazon Prime, Hulu, HBO, etc...
   "media.eme.enabled" = false;
-  "browser.eme.ui.enabled" = true;  # Shows/Hides the setting which also disables the DRM prompt.
+  "browser.eme.ui.enabled" = true; # Shows/Hides the setting which also disables the DRM prompt.
 
   ### DOM (DOCUMENT OBJECT MODEL) ###
 
@@ -443,7 +443,7 @@
   "privacy.clearOnShutdown.history" = true;
   "privacy.clearOnShutdown.sessions" = true;
   "privacy.clearOnShutdown.siteSettings" = false;
-  "privacy.clearOnShutdown.openWindows" = false;  # If true, this prevents resuming from crashes
+  "privacy.clearOnShutdown.openWindows" = false; # If true, this prevents resuming from crashes
   "privacy.clearOnShutdown.cookies" = true;
   "privacy.clearOnShutdown.offlineApps" = true; # Site data.
 

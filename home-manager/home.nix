@@ -32,12 +32,12 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    blesh         # ble.sh (required by bash.config.nix)
-    dotnet-sdk_7  # .NET 7
-    exa           # "ls" replacement
-    nil           # Nix LSP server
-    nixpkgs-fmt   # Nix code formatter
-    shellcheck    # Bash analyzer
-    tor-browser-bundle-bin  # The Tor Browser
+    blesh # ble.sh (required by bash.config.nix)
+    dotnet-sdk_7 # .NET 7
+    exa # "ls" replacement
+    nil # Nix LSP server
+    nixpkgs-fmt # Nix code formatter
+    shellcheck # Bash analyzer
+    tor-browser-bundle-bin # The Tor Browser
   ];
 }

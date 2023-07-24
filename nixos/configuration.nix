@@ -7,22 +7,22 @@
 {
   imports = [
     # Dependencies
-    ./Modules/Dependencies/nur.config.nix     # Nix User Repository
+    ./Modules/Dependencies/nur.config.nix # Nix User Repository
 
     # Core Settings
-    ./hardware-configuration.nix              # Include the results of the hardware scan.
-    ./Modules/Core/Boot/grub.config.nix       # GRUB Bootloader
-    ./Modules/Core/Misc/locale.config.nix     # Localization settings
-    ./Modules/Core/Misc/network.config.nix    # Networking settings
-    ./Modules/Core/Audio/pipewire.config.nix  # Pipewire
-    ./Modules/Core/Graphics/DEs/pantheon.config.nix    # Pantheon Desktop Environment
+    ./hardware-configuration.nix # Include the results of the hardware scan.
+    ./Modules/Core/Boot/grub.config.nix # GRUB Bootloader
+    ./Modules/Core/Misc/locale.config.nix # Localization settings
+    ./Modules/Core/Misc/network.config.nix # Networking settings
+    ./Modules/Core/Audio/pipewire.config.nix # Pipewire
+    ./Modules/Core/Graphics/DEs/pantheon.config.nix # Pantheon Desktop Environment
 
     # Driver Settings
-    ./Modules/Core/Drivers/spice.config.nix   # Spice-Agent Drivers
+    ./Modules/Core/Drivers/spice.config.nix # Spice-Agent Drivers
 
     # App Settings
-    ./Modules/Apps/docker.config.nix          # Docker
-    
+    ./Modules/Apps/docker.config.nix # Docker
+
     # User Settings
     ./Modules/Users/kotz.config.nix
   ];
@@ -40,17 +40,17 @@
 
   # Kernel Version
   boot.kernelPackages = pkgs.linuxPackages_latest.extend (self: super: {
-    kernel = super.kernel // pkgs.linuxKernel.kernels.linux_zen;  # Linux Zen Kernel
-  });  
+    kernel = super.kernel // pkgs.linuxKernel.kernels.linux_zen; # Linux Zen Kernel
+  });
 
   # Enable CUPS to print documents.
   services.printing.enable = false;
 
   # Packages to install system-wide.
   environment.systemPackages = with pkgs; [
-    tldr          # Quick documentation
-    neofetch      # Prints system information on the console
-    appimage-run  # Needed to execute AppImages
+    tldr # Quick documentation
+    neofetch # Prints system information on the console
+    appimage-run # Needed to execute AppImages
   ];
 
   # Enable the OpenSSH daemon.

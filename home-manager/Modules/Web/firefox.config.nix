@@ -1,7 +1,7 @@
 { pkgs, config, ... }:
 let
   firefox_hardened_settings = import ./Settings/firefox-hardened.settings.nix;
-  nur = (import (../Dependencies/nur.config.nix) { inherit pkgs; }).nur;
+  nur = import ../Dependencies/nur.config.nix { inherit pkgs; };
   nix_packages_search_engine = {
     urls = [{
       template = "https://search.nixos.org/packages";
@@ -72,28 +72,25 @@ in
 
     # Browser addons
     extensions = with nur.repos.rycee.firefox-addons; [
-      canvasblocker # Install this if you're not using RFP or letterboxing.
       augmented-steam
+      auto-tab-discard
+      behave
+      canvasblocker # Install this if you're not using RFP or letterboxing.
       darkreader
       flagfox
       gloc
-      behave
+      libredirect
       multi-account-containers
+      refined-github
       return-youtube-dislikes
+      sourcegraph
       temporary-containers
+      terms-of-service-didnt-read
       ublock-origin
       umatrix
       unpaywall
       user-agent-string-switcher
       youtube-nonstop
-
-      # Novelties
-      auto-tab-discard
-      canvasblocker
-      libredirect # Replaces "privacy-redirect"
-      refined-github
-      sourcegraph
-      terms-of-service-didnt-read
       youtube-shorts-block
 
       ## Missing

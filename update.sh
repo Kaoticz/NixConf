@@ -21,6 +21,13 @@ apply_home_config()
     cp -rv home-manager/ ~/.config/
 }
 
+# Check if the Nix formatter is installed before
+# running it on all configuration files.
+if [[ $(command -v nixpkgs-fmt) ]]; then
+    echo -e '\n> Formatting configuration files\n'
+    nixpkgs-fmt ./
+fi
+
 echo -e '\n> Applying root configuration\n'
 apply_root_config
 
