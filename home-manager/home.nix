@@ -38,5 +38,6 @@
     nil           # Nix LSP server
     nixpkgs-fmt   # Nix code formatter
     shellcheck    # Bash analyzer
+    tor-browser-bundle-bin  # The Tor Browser
   ];
 }

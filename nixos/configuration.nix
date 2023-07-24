@@ -49,7 +49,7 @@
   # Packages to install system-wide.
   environment.systemPackages = with pkgs; [
     tldr          # Quick documentation
-    neofetch      # Prints sytem information on the console
+    neofetch      # Prints system information on the console
     appimage-run  # Needed to execute AppImages
   ];
 
