@@ -22,8 +22,10 @@ let
   };
 in
 {
-  # Config for Firefox's default profile.
+  # Install Firefox.
   programs.firefox.enable = true;
+
+  # Profile close to Firefox's default behavior, large fingerprint.
   programs.firefox.profiles.insecure = {
     id = 0;
     isDefault = false;
@@ -46,8 +48,8 @@ in
     };
   };
 
+  # Semi-hardened profile, set as default, small fingerprint.
   programs.firefox.profiles.${config.home.username} = {
-    # Set the home profile as the default profile
     id = 1;
     isDefault = true;
 
@@ -102,22 +104,54 @@ in
 
     # Browser settings (with overrides)
     settings = firefox_hardened_settings // {
-      "browser.startup.page" = 3;
-      "browser.startup.homepage" = "about:home";
-      "browser.newtabpage.enabled" = true;
-      "keyword.enabled" = true;
-      "browser.formfill.enable" = true;
-      "browser.cache.disk.enable" = true;
-      "browser.shell.shortcutFavicons" = true;
-      "browser.download.useDownloadDir" = true;
-      "browser.download.alwaysOpenPanel" = true;
-      "privacy.clearOnShutdown.history" = false;
-      "privacy.clearOnShutdown.sessions" = false;
+      browser.startup.page = 3;
+      browser.startup.homepage = "about:home";
+      browser.newtabpage.enabled = true;
+      keyword.enabled = true;
+      browser.formfill.enable = true;
+      browser.cache.disk.enable = true;
+      browser.shell.shortcutFavicons = true;
+      browser.download.useDownloadDir = true;
+      browser.download.alwaysOpenPanel = true;
+      privacy.clearOnShutdown.history = false;
+      privacy.clearOnShutdown.sessions = false;
 
       # Install the CanvasBlocker extension to mitigate the lack of letterboxing.
-      "privacy.window.maxInnerWidth" = null;
-      "privacy.window.maxInnerHeight" = null;
-      "privacy.resistFingerprinting.letterboxing" = false;
+      privacy.window.maxInnerWidth = null;
+      privacy.window.maxInnerHeight = null;
+      privacy.resistFingerprinting.letterboxing = false;
     };
+  };
+
+  # Fully hardened profile, smallest fingerprint.
+  programs.firefox.profiles.ephemeral = {
+    id = 2;
+    isDefault = false;
+
+    search.engines = {
+      "DuckDuckGo".metaData.alias = "@ddg";
+      "Wikipedia (en)".metaData.hidden = true;
+      "Bing".metaData.hidden = true;
+      "Google".metaData.hidden = true;
+      "Amazon.com".metaData.hidden = true;
+    };
+
+    # Browser addons
+    extensions = with nur.repos.rycee.firefox-addons; [
+      auto-tab-discard
+      behave
+      darkreader
+      flagfox
+      libredirect
+      multi-account-containers
+      temporary-containers
+      terms-of-service-didnt-read
+      ublock-origin
+      umatrix
+      user-agent-string-switcher
+    ];
+
+    # Browser settings (hardened)
+    settings = firefox_hardened_settings;
   };
 }
