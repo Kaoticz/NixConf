@@ -27,31 +27,23 @@
     ./Modules/Users/kotz.config.nix
   ];
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.05"; # Did you read the comment?
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
-  # Kernel Version
-  boot.kernelPackages = pkgs.linuxPackages_latest.extend (self: super: {
-    kernel = super.kernel // pkgs.linuxKernel.kernels.linux_zen; # Linux Zen Kernel
-  });
-
-  # Enable CUPS to print documents.
-  services.printing.enable = false;
-
   # Packages to install system-wide.
   environment.systemPackages = with pkgs; [
     tldr # Quick documentation
     neofetch # Prints system information on the console
     appimage-run # Needed to execute AppImages
   ];
+
+  # Kernel Version
+  boot.kernelPackages = pkgs.linuxPackages_latest.extend (self: super: {
+    kernel = super.kernel // pkgs.linuxKernel.kernels.linux_zen; # Linux Zen Kernel
+  });
+
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
+
+  # Enable CUPS to print documents.
+  services.printing.enable = false;
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = false;
@@ -66,4 +58,12 @@
     enableSSHSupport = true;
     pinentryFlavor = "gnome3";
   };
+
+  # This value determines the NixOS release from which the default
+  # settings for stateful data, like file locations and database versions
+  # on your system were taken. It‘s perfectly fine and recommended to leave
+  # this value at the release version of the first install of this system.
+  # Before changing this value read the documentation for this option
+  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  system.stateVersion = "23.05"; # Did you read the comment?
 }

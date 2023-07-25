@@ -1,26 +1,6 @@
 { pkgs, ... }:
 
 {
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
-
-  # Home Manager needs a bit of information about you and the paths it should
-  # manage.
-  home.username = "${builtins.getEnv "USER"}";
-  home.homeDirectory = "${builtins.getEnv "HOME"}";
-
-  # This value determines the Home Manager release that your configuration is
-  # compatible with. This helps avoid breakage when a new Home Manager release
-  # introduces backwards incompatible changes.
-  #
-  # You should not change this value, even if you update Home Manager. If you do
-  # want to update the value, then make sure to first check the Home Manager
-  # release notes.
-  home.stateVersion = "23.05"; # Please read the comment before changing.
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
   # Importing Modules
   imports = [
     ./Modules/Development/bash.config.nix
@@ -40,4 +20,28 @@
     shellcheck # Bash analyzer
     tor-browser-bundle-bin # The Tor Browser
   ];
+
+  # Let Home Manager install and manage itself.
+  programs.home-manager.enable = true;
+
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
+
+  # Home Manager needs a bit of information about you and the paths it should
+  # manage.
+  home.username = builtins.getEnv "USER";
+  home.homeDirectory = builtins.getEnv "HOME";
+
+  # This value determines the Home Manager release that your configuration is
+  # compatible with. This helps avoid breakage when a new Home Manager release
+  # introduces backwards incompatible changes.
+  #
+  # You should not change this value, even if you update Home Manager. If you do
+  # want to update the value, then make sure to first check the Home Manager
+  # release notes.
+  #
+  # This reads from a file named "ver", whose contents comprise entirely of the
+  # version of Home Manager that is being used. Example: 23.05
+  # This file is automatically created when first_setup.sh is run.
+  home.stateVersion = builtins.replaceStrings [ "\n" " " ] [ "" "" ] (builtins.readFile ./Config/ver);
 }
