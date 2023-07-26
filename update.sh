@@ -128,7 +128,7 @@ fi
 
 if [[ $update_root && ! $update_type =~ $NONE_REGEX ]]; then
     echo '> Applying root configuration.'
-    sudo sudo nix-channel --update && sudo nixos-rebuild "$update_type"
+    sudo nix-channel --update && sudo nixos-rebuild "$update_type"
 fi
 
 if [[ $update_user && ! $update_type =~ $NONE_REGEX ]]; then
