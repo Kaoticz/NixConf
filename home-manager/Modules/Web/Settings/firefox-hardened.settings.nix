@@ -7,6 +7,8 @@
 # overriden if the override is also wrapped around quotation marks
 #
 # Based on: https://github.com/arkenfox/user.js
+# Settings for Firefox 115
+# Synced to commit: https://github.com/arkenfox/user.js/commit/4d78abf2bfafbbcb03f8f6d6aaaf7e69b7cfee4e
 rec {
   ### STARTUP ###
 
@@ -180,11 +182,18 @@ rec {
   # Enable/Disable DNS-over-HTTPS (DoH).
   # Default uses Cloudflare's DNS. If you don't trust it, disable it by setting this value to 5
   # or provide another DNS of your choice with options 2 or 3.
-  # 0=off by default, 2=TRR (Trusted Recursive Resolver) first, 3=TRR only, 5=explicitly off
+  # 0=default, 2=increased (TRR first [Trusted Recursive Resolver]), 3=max (TRR only), 5=off
   # See also: https://github.com/curl/curl/wiki/DNS-over-HTTPS#publicly-available-servers
   network.trr.mode = 3;
-  network.ttr.uri = if builtins.elem network.trr.mode [ 2 3 ] then "https://open.dns0.eu/" else null; # Required if mode is 2 or 3
-  network.ttr.custom_uri = if builtins.elem network.trr.mode [ 2 3 ] then "https://open.dns0.eu/" else null; # Required if mode is 2 or 3
+  network.ttr.uri =         # Required if network.trr.mode is 2 or 3
+    if builtins.elem network.trr.mode [ 2 3 ]
+    then "https://open.dns0.eu/"
+    else null;
+
+  network.ttr.custom_uri =  # Required if network.trr.mode is 2 or 3
+    if builtins.elem network.trr.mode [ 2 3 ]
+    then "https://open.dns0.eu/"
+    else null; # Required if mode is 2 or 3
 
   ### LOCATION BAR / SEARCH BAR / SUGGESTIONS / HISTORY / FORMS ###
 
@@ -373,9 +382,6 @@ rec {
   # Set remote debugging to disabled.
   devtools.debugger.remote-enabled = false;
 
-  # Disable middle mouse click opening links from clipboard.
-  middlemouse.contentLoadURL = false;
-
   # Disable websites overriding Firefox's keyboard shortcuts.
   # 0 (default) or 1=allow, 2=block
   permissions.default.shortcuts = 2;
@@ -421,6 +427,9 @@ rec {
   # Disable webextension restrictions on certain mozilla domains.
   extensions.webextensions.restrictedDomains = "";
 
+  # Disable middle click on new tab button opening URLs or searches using clipboard [FF115+] */
+  browser.tabs.searchclipboardfor.middleclick = false;
+
   ### ETP (ENHANCED TRACKING PROTECTION) ###
 
   # Enable ETP Strict Mode - ETP Strict Mode enables Total Cookie Protection (TCP).
@@ -443,7 +452,6 @@ rec {
   privacy.sanitize.sanitizeOnShutdown = true;
 
   # Set all of these to "true" to get more privacy.
-  privacy.clearsitedata.cache.enabled = true;
   privacy.clearOnShutdown.cache = true;
   privacy.clearOnShutdown.downloads = true;
   privacy.clearOnShutdown.formdata = true;
@@ -537,6 +545,9 @@ rec {
 
   # Enforce disabling of Web Compatibility Reporter.
   extensions.webcompat-reporter.enabled = false;
+
+  # Enforce Quarantined Domains.
+  extensions.quarantinedDomains.enabled = true;
 
   ### OTHERS ###
 

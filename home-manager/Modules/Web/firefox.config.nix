@@ -116,7 +116,7 @@ in
       privacy.clearOnShutdown.history = false;
       privacy.clearOnShutdown.sessions = false;
 
-      # Install the CanvasBlocker extension to mitigate the lack of letterboxing.
+      # Remove letterboxing. Install the CanvasBlocker extension to mitigate this.
       privacy.window.maxInnerWidth = null;
       privacy.window.maxInnerHeight = null;
       "privacy.resistFingerprinting.letterboxing" = false;
