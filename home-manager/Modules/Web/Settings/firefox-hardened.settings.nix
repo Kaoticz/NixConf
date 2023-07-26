@@ -1,6 +1,11 @@
 # Firefox settings (hardened).
+#
 # You're encouraged to read these settings and override
 # whatever you don't like in your Firefox profile.
+#
+# Note: settings wrapped around quotation marks will only be
+# overriden if the override is also wrapped around quotation marks
+#
 # Based on: https://github.com/arkenfox/user.js
 rec {
   ### STARTUP ###

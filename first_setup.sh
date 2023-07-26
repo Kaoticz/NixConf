@@ -1,17 +1,21 @@
 #!/usr/bin/env bash
 
-# Make the script abort on error
+#########
+# Convenience script to install the Nix package manager
+# and Home Manager's standalone version. Theoretically
+# compatible with any Linux distribution and MacOS.
+#########
+# Usage:
+## ./first_setup.sh
+#########
+
+# Make the script abort on error.
 set -e
 
+# Import helper functions.
+source ./ShellLibs/helpers.sh
+
 ## Constants
-
-# Regex for "yes".
-# Pattern: ^(yes|ye|y)$
-declare -r YES_REGEX='^(yes|ye|y)$'
-
-# Regex for "no".
-# Pattern: ^(no|n)$'
-declare -r NO_REGEX='^(no|n)$'
 
 # Regex for Home Manager's update channel.
 # Pattern: https:\/\/github\.com\/nix-community\/home-manager\/archive\/release-([0-9]+\.[0-9]+)\.tar\.gz
@@ -21,58 +25,6 @@ declare -r HMNGR_REGEX='https:\/\/github\.com\/nix-community\/home-manager\/arch
 declare -r CONSULT_NIX='Visit https://nixos.org/download.html if you are not sure.'
 
 ## Functions
-
-# Prints a warning to stderr.
-# Usage: warn <function_name> <error_message>
-warn()
-{
-    echo "$1: ${*:2}" >&2
-}
-
-# Prints a warning to stderr and exits with the specified error code.
-# Usage: fail <error_code> <function_name> <error_message>
-fail()
-{
-    warn "${@:2}"
-    exit "$1"
-}
-
-# Safely executes a function, printing errors to stderr but not halting execution of the script.
-# Usage: try <function_call>
-try()
-{
-    "$@" || fail 1 "failed to run '$*'"
-}
-
-# Prompts the user to type something with a message.
-# Usage: get_input <message>
-# Returns: a string with the user's input.
-get_input()
-{
-    read -rp "$*" input
-    echo "$input"
-}
-
-# Prompts the user to type a message that meets one or more patterns.
-# Usage get_valid_input <message> <expected_patterns...>
-# Remarks: this function requires at least 2 arguments (the message and one valid input).
-# Returns: a string with the user's input or error code 3 - see Remarks.
-get_valid_input()
-{
-    if (( $# <= 1 )); then
-        fail 1 'get_valid_input' 'This function requires 2 or more arguments.'
-    fi
-
-    local input=''
-    local -ra answers=("${@:2}")    # Get all arguments, except the first one.
-
-    # Keep looping while $input is not a valid answer.
-    while [[ -z $input || ! ${answers[*]} =~ ${input,,} ]]; do
-        input=$(get_input "$1")
-    done
-    
-    echo "$input"
-}
 
 # Checks if the current OS uses Systemd as its init system.
 # Usage: has_systemd
@@ -118,10 +70,12 @@ is_sudoer()
 # If these conditions are not met, Nix can only be installed for the current user.
 install_nix()
 {
-    local option=; option=$([[ $(has_systemd) && ! $(is_selinux_active) && $(is_sudoer) ]] && echo '--daemon' || echo '--no-daemon')
-    local input=;
+    local option;
+    local input;
 
-    if [[ $option == '--daemon' ]]; then
+    if [[ $OSTYPE =~ darwin ]]; then
+        option=''
+    elif [[ $(has_systemd) && ! $(is_selinux_active) && $(is_sudoer) ]]; then
         input=$(get_valid_input "> Would you like to install Nix system-wide [y] (recommended) or just for your current user [n]? $CONSULT_NIX [y/n]: " $YES_REGEX $NO_REGEX)
         option=$([[ ${input,,} =~ $YES_REGEX ]] && echo '--daemon' || echo '--no-daemon')
     else
@@ -151,6 +105,11 @@ install_home_manager()
 }
 
 ## Main (Entry Point)
+
+# Check if the OS is supported.
+if [[ ! $OSTYPE =~ linux && ! $OSTYPE =~ darwin ]]; then
+    fail 1 "$0" 'This script is only supported on Linux and MacOS.'
+fi
 
 # Install the Nix package manager.
 if [[ $(command -v nix-env) ]]; then

@@ -119,7 +119,7 @@ in
       # Install the CanvasBlocker extension to mitigate the lack of letterboxing.
       privacy.window.maxInnerWidth = null;
       privacy.window.maxInnerHeight = null;
-      privacy.resistFingerprinting.letterboxing = false;
+      "privacy.resistFingerprinting.letterboxing" = false;
     };
   };
 

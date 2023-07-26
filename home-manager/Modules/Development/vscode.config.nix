@@ -46,6 +46,7 @@
     userSettings = {
       "telemetry.telemetryLevel" = "off";
       "workbench.colorTheme" = "Default Dark+";
+      "workbench.editor.wrapTabs" = true;
       "csharp.maxProjectFileCountForDiagnosticAnalysis" = 100;
       "csharp.semanticHighlighting.enabled" = true;
       "csharp.suppressHiddenDiagnostics" = false;
@@ -85,6 +86,7 @@
       "javascript.updateImportsOnFileMove.enabled" = "always";
       "debug.javascript.autoAttachFilter" = "smart";
       "markdown-preview-enhanced.previewTheme" = "github-dark.css";
+      "shellcheck.customArgs" = [ "-x" ];
       "shellcheck.exclude" = [
         "2155"
         "2001"
