@@ -36,6 +36,11 @@ in
       default = "none";
       description = "The environments supported by this module.";
     };
+    bashrc = lib.mkOption {
+      type = lib.types.str;
+      default = "";
+      description = "Extra code to be called after environment's bashrc code.";
+    };
   };
 
   # Config: things that must be done if this module is enabled.
@@ -68,7 +73,7 @@ in
       then throw "kotz.bash.environment: Invalid value '${cfg.environment}'."
       else
         if cfg.enableBlesh
-        then bleshBashrcFactory { inherit pkgs; bashrc = supportedEnvs.${cfg.environment}.bashrc; }
-        else supportedEnvs.${cfg.environment}.bashrc;
+        then bleshBashrcFactory { inherit pkgs; bashrc = supportedEnvs.${cfg.environment}.bashrc + "\n" + cfg.bashrc; }
+        else supportedEnvs.${cfg.environment}.bashrc + "\n" + cfg.bashrc;
   };
 }
