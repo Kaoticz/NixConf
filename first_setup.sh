@@ -28,6 +28,10 @@ declare -r HMNGR_REGEX='https:\/\/github\.com\/nix-community\/home-manager\/arch
 # Warning telling the user to visit https://nixos.org/download.html.
 declare -r CONSULT_NIX='Visit https://nixos.org/download.html if you are not sure.'
 
+# Defines the location of the temporary installation file, used to check
+# if the user restarted the shell after installing Nix.
+declare -r FLAG_FILE_PATH='./temp'
+
 ## Functions
 
 # Checks if the current OS uses Systemd as its init system.
@@ -121,19 +125,14 @@ get_nixos_release()
     echo "${BASH_REMATCH[0]}"
 }
 
-# $@: paths to files to source
-reload_shell()
+# Forces the user to restart the shell so the Nix envars get loaded.
+enforce_shell_restart()
 {
-    local success=''
-
-    for toSource in "${@}"; do
-        if [[ -f "$toSource" ]]; then
-            source "$toSource"
-            success='true'
-        fi
-    done
-
-    echo "$success"
+    if [[ -d $FLAG_FILE_PATH && ! $(command -v nix-channel) ]]; then
+        fail 1 'enforce_shell_restart' 'Please, restart your terminal and run this script again.'
+    elif [[ -d $FLAG_FILE_PATH ]]; then
+        rm $FLAG_FILE_PATH
+    fi
 }
 
 ## Main (Entry Point)
@@ -142,6 +141,9 @@ reload_shell()
 if [[ ! $OSTYPE =~ linux && ! $OSTYPE =~ darwin ]]; then
     fail 1 "$0" 'This script is only supported on Linux and MacOS.'
 fi
+
+# Guard against lazy users.
+enforce_shell_restart
 
 # Install the Nix package manager.
 if [[ $(command -v nixos-version) ]]; then
@@ -152,6 +154,10 @@ elif [[ $(command -v nix-env) ]]; then
 else
     echo '> Nix was not detected. Installing...'
     install_nix
+
+    echo '> Nix installed successfully. Please, restart your terminal and run this script again.'
+    touch $FLAG_FILE_PATH
+    exit 0
 fi
 
 # Install Home Manager
@@ -159,10 +165,6 @@ if [[ $(command -v home-manager) ]]; then
     echo '> Home Manager detected, skipping installation.'
 else
     echo '> Home Manager not detected. Installing...'
-    if [[ ! $(command -v nix-channel) && ! $(reload_shell "$HOME/.bash_profile" "$HOME/.bashrc") ]]; then
-        fail 2 "$0" 'Failed to reload the shell. Close your terminal and run this script again.'
-    fi
-
     mkdir -p ./home-manager/Config/
     install_home_manager > ./home-manager/Config/hm-version
 fi
