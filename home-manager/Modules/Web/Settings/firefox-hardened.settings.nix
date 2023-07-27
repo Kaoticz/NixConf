@@ -185,12 +185,12 @@ rec {
   # 0=default, 2=increased (TRR first [Trusted Recursive Resolver]), 3=max (TRR only), 5=off
   # See also: https://github.com/curl/curl/wiki/DNS-over-HTTPS#publicly-available-servers
   network.trr.mode = 3;
-  network.ttr.uri =         # Required if network.trr.mode is 2 or 3
+  network.ttr.uri = # Required if network.trr.mode is 2 or 3
     if builtins.elem network.trr.mode [ 2 3 ]
     then "https://open.dns0.eu/"
     else null;
 
-  network.ttr.custom_uri =  # Required if network.trr.mode is 2 or 3
+  network.ttr.custom_uri = # Required if network.trr.mode is 2 or 3
     if builtins.elem network.trr.mode [ 2 3 ]
     then "https://open.dns0.eu/"
     else null; # Required if mode is 2 or 3

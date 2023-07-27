@@ -71,7 +71,7 @@ apply_home_config()
 # Values: root, user, or both
 scope=$(
     case "${1,,}" in
-        root|user|both) echo "${1,,}" ;;
+        r|root|u|user|b|both) echo "${1,,}" ;;
         *) get_valid_input '> Would you like to update the configuration for root, user, or both? [r/u/b]: ' "$ROOT_REGEX" "$USER_REGEX" "$BOTH_REGEX"  ;;
     esac
 )
@@ -79,7 +79,7 @@ readonly scope
 
 update_type=$(
     case "${2,,}" in
-        switch|build|none) echo "${2,,}" ;;
+        s|switch|b|build|n|none) echo "${2,,}" ;;
         *) get_valid_input '> Would you like to build and switch to the new configuration [s], just build it [b], or do nothing [n]? [s/b/n]: ' "$SWITCH_REGEX" "$BUILD_REGEX" "$NONE_REGEX"    ;;
     esac
 )

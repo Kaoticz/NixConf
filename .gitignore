@@ -1,2 +1,5 @@
 # Ignore the version file
-ver
+hm-version
+
+# Ignore the build directory
+result/

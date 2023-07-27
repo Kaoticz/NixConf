@@ -76,10 +76,10 @@ install_nix()
     if [[ $OSTYPE =~ darwin ]]; then
         option=''
     elif [[ $(has_systemd) && ! $(is_selinux_active) && $(is_sudoer) ]]; then
-        input=$(get_valid_input "> Would you like to install Nix system-wide [y] (recommended) or just for your current user [n]? $CONSULT_NIX [y/n]: " $YES_REGEX $NO_REGEX)
+        input=$(get_valid_input "> Would you like to install Nix system-wide [y] (recommended) or just for your current user [n]? $CONSULT_NIX [y/n]: " "$YES_REGEX" "$NO_REGEX")
         option=$([[ ${input,,} =~ $YES_REGEX ]] && echo '--daemon' || echo '--no-daemon')
     else
-        input=$(get_valid_input "> Your system doesn't seem to support a system-wide installaion of Nix. Would you like to proceed anyway and install it just for your current user? $CONSULT_NIX [y/n]: " $YES_REGEX $NO_REGEX)
+        input=$(get_valid_input "> Your system doesn't seem to support a system-wide installaion of Nix. Would you like to proceed anyway and install it just for your current user? $CONSULT_NIX [y/n]: " "$YES_REGEX" "$NO_REGEX")
         [[ ${input,,} =~ $NO_REGEX ]] && fail 1 'install_nix' 'Installation cancelled by the user'
     fi
     
@@ -124,7 +124,8 @@ if [[ $(command -v home-manager) ]]; then
     echo '> Home Manager detected, skipping installation.'
 else
     echo '> Home Manager not detected. Installing...'
-    install_home_manager > ./home-manager/Config/ver
+    mkdir -p ./home-manager/Config/
+    install_home_manager > ./home-manager/Config/hm-version
 fi
 
 echo "> Setup done. Run './update.sh' to apply the configuration files."
