@@ -104,12 +104,12 @@ fi
 
 # Determines whether the root configuration should be updated or not.
 # Values: Non-empty string if update should be performed, empty string if it should not.
-update_root=$([[ -d '/etc/nixos/' && $scope =~ $ROOT_REGEX || $scope =~ $BOTH_REGEX ]] && echo 'true' || echo '')
+update_root=$([[ -d '/etc/nixos/' && ($scope =~ $ROOT_REGEX || $scope =~ $BOTH_REGEX) ]] && echo 'true' || echo '')
 readonly update_root
 
 # Determines whether the user configuration should be updated or not.
 # Values: Non-empty string if update should be performed, empty string if it should not.
-update_user=$([[ -d "$HOME/.config/home-manager/" && $scope =~ $USER_REGEX || $scope =~ $BOTH_REGEX ]] && echo 'true' || echo '')
+update_user=$([[ -d "$HOME/.config/home-manager/" && ($scope =~ $USER_REGEX || $scope =~ $BOTH_REGEX) ]] && echo 'true' || echo '')
 readonly update_user
 
 # Updating files

@@ -175,8 +175,8 @@ if [[ $(command -v home-manager) ]]; then
     echo '> Home Manager detected, skipping installation.'
 else
     echo '> Home Manager not detected. Installing...'
-    matches=$(get_home_manager_release)
-    readonly matches
+    IFS=" "
+    read -ra matches <<< "$(get_home_manager_release)"
     
     install_home_manager "${matches[0]}" "${matches[1]}"
     mkdir -p ./home-manager/Config/
