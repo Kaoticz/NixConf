@@ -121,6 +121,21 @@ get_nixos_release()
     echo "${BASH_REMATCH[0]}"
 }
 
+# $@: paths to files to source
+reload_shell()
+{
+    local success=''
+
+    for toSource in "${@}"; do
+        if [[ -f "$toSource" ]]; then
+            source "$toSource"
+            success='true'
+        fi
+    done
+
+    echo "$success"
+}
+
 ## Main (Entry Point)
 
 # Check if the OS is supported.
@@ -144,6 +159,10 @@ if [[ $(command -v home-manager) ]]; then
     echo '> Home Manager detected, skipping installation.'
 else
     echo '> Home Manager not detected. Installing...'
+    if [[ ! $(command -v nix-channel) && ! $(reload_shell "$HOME/.bash_profile" "$HOME/.bashrc") ]]; then
+        fail 2 "$0" 'Failed to reload the shell. Close your terminal and run this script again.'
+    fi
+
     mkdir -p ./home-manager/Config/
     install_home_manager > ./home-manager/Config/hm-version
 fi
