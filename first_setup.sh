@@ -95,24 +95,33 @@ install_nix()
 }
 
 # Install Home Manager on the current system.
+# Usage: install_home_manager <update_channel> <release_version>
 # Remarks: This is a standalone installation - https://nix-community.github.io/home-manager/index.html#sec-install-standalone
-# Returns: The version of Home Manager that got installed.
 install_home_manager()
+{
+    echo "> Found Home Manager version $2."
+
+    nix-channel --add "$1" 'home-manager'
+    nix-channel --update
+    nix-shell '<home-manager>' -A install
+}
+
+# Gets the current release of Home Manager.
+# Usage: get_home_manager_release
+# Returns: An array where the first element is the update channel and the second element is the version of Home Manager.
+get_home_manager_release()
 {
     local -r html_content=$(curl -s 'https://nix-community.github.io/home-manager/')
 
     if [[ ! $html_content =~ $HMNGR_REGEX ]]; then
-        fail 1 'install_home_manager' 'Home Manager'\''s update channel was not found. Aborting.'
+       fail 1 'install_home_manager' 'Home Manager'\''s update channel was not found. Aborting.'
     fi
 
-    nix-channel --add "${BASH_REMATCH[0]}" 'home-manager'
-    nix-channel --update
-    nix-shell '<home-manager>' -A install
-
-    echo "${BASH_REMATCH[1]}"
+    echo "${BASH_REMATCH[@]}"
 }
 
 # Gets the NixOS release version of the current system.
+# Usage: get_nixos_release
 # Returns: The release version of the system
 get_nixos_release()
 {
@@ -126,6 +135,7 @@ get_nixos_release()
 }
 
 # Forces the user to restart the shell so the Nix envars get loaded.
+# Usage: enforce_shell_restart
 enforce_shell_restart()
 {
     if [[ -f $FLAG_FILE_PATH && ! $(command -v nix-channel) ]]; then
@@ -165,8 +175,12 @@ if [[ $(command -v home-manager) ]]; then
     echo '> Home Manager detected, skipping installation.'
 else
     echo '> Home Manager not detected. Installing...'
+    matches=$(get_home_manager_release)
+    readonly matches
+    
+    install_home_manager "${matches[0]}" "${matches[1]}"
     mkdir -p ./home-manager/Config/
-    install_home_manager > ./home-manager/Config/hm-version
+    echo "${matches[1]}" > ./home-manager/Config/hm-version
 fi
 
 echo "> Setup done. Run './update.sh' to apply the configuration files."
