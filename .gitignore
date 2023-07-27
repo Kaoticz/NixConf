@@ -1,4 +1,5 @@
 # Ignore the version files
+Config/
 nixos-version
 hm-version
 

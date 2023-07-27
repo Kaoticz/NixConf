@@ -1,28 +1,25 @@
 { pkgs, ... }:
 
 {
-  # Importing Modules
+  # Import Modules
   imports = [
-    ./Modules/Shells/Bash/bash.kotz.config.nix
-    ./Modules/Web/firefox.config.nix
-    ./Modules/Development/git.config.nix
-    ./Modules/Development/vscode.config.nix
+    ./Modules/all-modules.config.nix
   ];
 
+  # Shell
   kotz.bash.enable = true;
   kotz.bash.enableBlesh = true;
   kotz.bash.enableAliases = true;
   kotz.bash.environment = "pantheon";
 
+  # Others
+  kotz.vscode.enable = true; # VSCode
+  kotz.git.enable = true; # Git
+  kotz.firefox.enable = true; # Firefox
+
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    blesh # ble.sh (required by bash.config.nix)
-    dotnet-sdk_7 # .NET 7
-    exa # "ls" replacement
-    nil # Nix LSP server
-    nixpkgs-fmt # Nix code formatter
-    shellcheck # Bash analyzer
     tor-browser-bundle-bin # The Tor Browser
   ];
 

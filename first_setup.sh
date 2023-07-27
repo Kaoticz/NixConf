@@ -95,13 +95,11 @@ install_nix()
 }
 
 # Install Home Manager on the current system.
-# Usage: install_home_manager <update_channel> <release_version>
+# Usage: install_home_manager <update_channel>
 # Remarks: This is a standalone installation - https://nix-community.github.io/home-manager/index.html#sec-install-standalone
 install_home_manager()
 {
-    echo "> Found Home Manager version $2."
-
-    nix-channel --add "$1" 'home-manager'
+    nix-channel --add "$*" 'home-manager'
     nix-channel --update
     nix-shell '<home-manager>' -A install
 }
@@ -156,7 +154,7 @@ fi
 enforce_shell_restart
 
 # Install the Nix package manager.
-if [[ $(command -v nixos-version) ]]; then
+if [[ $(command -v nixos-version) && ! -d './nixos/Config/nixos-version' ]]; then
     mkdir -p ./nixos/Config/
     get_nixos_release > ./nixos/Config/nixos-version
 elif [[ $(command -v nix-env) ]]; then
@@ -165,7 +163,7 @@ else
     echo '> Nix was not detected. Installing...'
     install_nix
 
-    echo '> Nix installed successfully. Please, restart your terminal and run this script again.'
+    echo '> Nix installed successfully. Please, restart your terminal and execute this script again.'
     touch $FLAG_FILE_PATH
     exit 0
 fi
@@ -178,9 +176,9 @@ else
     IFS=" "
     read -ra matches <<< "$(get_home_manager_release)"
     
-    install_home_manager "${matches[0]}" "${matches[1]}"
+    install_home_manager "${matches[0]}"
     mkdir -p ./home-manager/Config/
     echo "${matches[1]}" > ./home-manager/Config/hm-version
 fi
 
-echo "> Setup done. Run './update.sh' to apply the configuration files."
+echo "> Setup done. Execute './update.sh' to apply the configuration files."

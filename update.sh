@@ -114,7 +114,7 @@ readonly update_user
 
 # Updating files
 
-if [[ $update_root ]]; then
+if [[ $update_root && ! $(sudo -v) ]]; then
     echo '> Updating root configuration.'
     apply_root_config
 fi
@@ -126,7 +126,7 @@ fi
 
 # Updating system
 
-if [[ $update_root && ! $update_type =~ $NONE_REGEX ]]; then
+if [[ $update_root && ! $update_type =~ $NONE_REGEX && ! $(sudo -v) ]]; then
     echo '> Applying root configuration.'
     sudo nix-channel --update && sudo nixos-rebuild "$update_type"
 fi

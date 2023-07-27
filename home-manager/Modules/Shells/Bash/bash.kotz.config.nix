@@ -30,7 +30,7 @@ in
   options.kotz.bash = {
     enable = lib.mkEnableOption "Kotz's Bash configuration.";
     enableBlesh = lib.mkEnableOption "Enable ble.sh command line editor.";
-    enableAliases = lib.mkEnableOption "Enable the default aliases.";
+    enableAliases = lib.mkEnableOption "Enable Kotz's default aliases.";
     environment = lib.mkOption {
       type = lib.types.str;
       default = "none";
@@ -40,6 +40,15 @@ in
 
   # Config: things that must be done if this module is enabled.
   config = lib.mkIf cfg.enable {
+    # Install packages
+    home.packages = with pkgs;
+      if cfg.enableBlesh
+      then [ exa blesh ]
+      else
+        if cfg.enableAliases
+        then [ exa ]
+        else [ ];
+
     # Setup Bash
     programs.bash.enable = true;
     programs.bash.enableCompletion = true;
