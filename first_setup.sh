@@ -128,9 +128,9 @@ get_nixos_release()
 # Forces the user to restart the shell so the Nix envars get loaded.
 enforce_shell_restart()
 {
-    if [[ -d $FLAG_FILE_PATH && ! $(command -v nix-channel) ]]; then
+    if [[ -f $FLAG_FILE_PATH && ! $(command -v nix-channel) ]]; then
         fail 1 'enforce_shell_restart' 'Please, restart your terminal and run this script again.'
-    elif [[ -d $FLAG_FILE_PATH ]]; then
+    elif [[ -f $FLAG_FILE_PATH ]]; then
         rm $FLAG_FILE_PATH
     fi
 }
