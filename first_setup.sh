@@ -17,6 +17,10 @@ source ./ShellLibs/helpers.sh
 
 ## Constants
 
+# Regex to find the release version of a NixOS installation from the command 'nixos-version'
+# Pattern: ^[0-9]+\.[0-9]+
+declare -r NIXOS_REGEX='^[0-9]+\.[0-9]+'
+
 # Regex for Home Manager's update channel.
 # Pattern: https:\/\/github\.com\/nix-community\/home-manager\/archive\/release-([0-9]+\.[0-9]+)\.tar\.gz
 declare -r HMNGR_REGEX='https:\/\/github\.com\/nix-community\/home-manager\/archive\/release-([0-9]+\.[0-9]+)\.tar\.gz'
@@ -104,6 +108,19 @@ install_home_manager()
     echo "${BASH_REMATCH[1]}"
 }
 
+# Gets the NixOS release version of the current system.
+# Returns: The release version of the system
+get_nixos_release()
+{
+    local -r full_version=$(nixos-version)
+
+    if [[ ! $full_version =~ $NIXOS_REGEX ]]; then
+        fail 1 'get_nixos_release' 'This function only works on NixOS.'
+    fi
+
+    echo "${BASH_REMATCH[0]}"
+}
+
 ## Main (Entry Point)
 
 # Check if the OS is supported.
@@ -112,7 +129,10 @@ if [[ ! $OSTYPE =~ linux && ! $OSTYPE =~ darwin ]]; then
 fi
 
 # Install the Nix package manager.
-if [[ $(command -v nix-env) ]]; then
+if [[ $(command -v nixos-version) ]]; then
+    mkdir -p ./nixos/Config/
+    get_nixos_release > ./nixos/Config/nixos-version
+elif [[ $(command -v nix-env) ]]; then
     echo '> Nix detected, skipping installation.'
 else
     echo '> Nix was not detected. Installing...'

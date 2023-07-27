@@ -65,5 +65,9 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.05"; # Did you read the comment?
+  #
+  # This reads from a file named "nixos-version", whose contents comprise entirely of the
+  # version of NixOS that was originally installed. Example: 23.05
+  # This file is automatically created when first_setup.sh is run.
+  system.stateVersion = builtins.replaceStrings [ "\n" " " ] [ "" "" ] (builtins.readFile ./Config/nixos-version);
 }
