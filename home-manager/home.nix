@@ -1,31 +1,36 @@
 { pkgs, ... }:
 
 {
-  # Import Modules
+  # Import Modules.
   imports = [
     ./Modules/all-modules.config.nix
   ];
 
-  # Shell
+  ### Configurables ###
+
+  # Shell.
   kotz.bash.enable = true;
   kotz.bash.enableBlesh = true;
   kotz.bash.enableAliases = true;
   kotz.bash.environment = "pantheon";
 
-  # Others
+  # Others.
   kotz.vscode.enable = true; # VSCode
   kotz.git.enable = true; # Git
   kotz.firefox.enable = true; # Firefox
 
-  # The home.packages option allows you to install Nix packages into your environment.
+  ### Extra packages ###
+
   home.packages = with pkgs; [
     tor-browser-bundle-bin # The Tor Browser
   ];
 
+  ### Don't Touch Unless You Know What You're Doing ###
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  # Allow unfree packages
+  # Allow unfree packages.
   nixpkgs.config.allowUnfree = true;
 
   # Home Manager needs a bit of information about you and the paths it should manage.

@@ -116,7 +116,7 @@ get_release_channels()
        fail 1 'get_release_channels' 'Home Manager'\''s update channel was not found. Aborting.'
     fi
 
-    echo "https://nixos.org/channels/nixos-${matches[1]}" "${BASH_REMATCH[@]}"
+    echo "https://nixos.org/channels/nixos-${BASH_REMATCH[1]}" "${BASH_REMATCH[@]}"
 }
 
 # Gets the NixOS release version of the current system.

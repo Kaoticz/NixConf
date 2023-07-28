@@ -5,59 +5,52 @@
 { pkgs, ... }:
 
 {
+  # Import Modules
   imports = [
-    # Dependencies
-    ./Modules/Dependencies/nur.config.nix # Nix User Repository
-
-    # Core Settings
     ./hardware-configuration.nix # Include the results of the hardware scan.
-    ./Modules/Core/Boot/grub.config.nix # GRUB Bootloader
-    ./Modules/Core/Misc/locale.config.nix # Localization settings
-    ./Modules/Core/Misc/network.config.nix # Networking settings
-    ./Modules/Core/Audio/pipewire.config.nix # Pipewire
-    ./Modules/Core/Graphics/DEs/pantheon.config.nix # Pantheon Desktop Environment
-
-    # Driver Settings
-    ./Modules/Core/Drivers/spice.config.nix # Spice-Agent Drivers
-
-    # App Settings
-    ./Modules/Apps/docker.config.nix # Docker
-
-    # User Settings
-    ./Modules/Users/kotz.config.nix
+    ./Modules/all-modules.config.nix #
   ];
 
-  # Packages to install system-wide.
-  environment.systemPackages = with pkgs; [
-    tldr # Quick documentation
-    neofetch # Prints system information on the console
-    appimage-run # Needed to execute AppImages
-  ];
+  ### Configurables ###
 
-  # Kernel Version
+  # Kernel Version.
   boot.kernelPackages = pkgs.linuxPackages_latest.extend (self: super: {
     kernel = super.kernel // pkgs.linuxKernel.kernels.linux_zen; # Linux Zen Kernel
   });
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  # Enable GnuPG.
+  programs.gnupg.agent.enable = true;
+  programs.gnupg.agent.enableSSHSupport = true;
+  programs.gnupg.agent.pinentryFlavor = "gnome3";
 
-  # Enable CUPS to print documents.
-  services.printing.enable = false;
-
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = false;
-
-  # Enable Flatpaks
+  # Enable Flatpaks.
   services.flatpak.enable = true;
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
-  # Enable GnuPG
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-    pinentryFlavor = "gnome3";
-  };
+  # Others.
+  services.printing.enable = false; # Enable CUPS to print documents.
+  services.openssh.enable = false; # Enable OpenSSH.
+  kotz.virtualization.docker.enable = true; # Enable Docker.
+  kotz.graphics.de.pantheon.enable = true; # Enable Pantheon Desktop Environment.
+  kotz.audio.pipewire.enable = true; # Enable Pipewire.
+  kotz.drivers.spice.enable = true; # Enable KVM drivers.
+  kotz.networking.enable = true; # Enable personal networking settings.
+  kotz.boot.grub.enable = true; # Enable Grub.
+  kotz.locale.enable = true; # Enable personal locale settings.
+  kotz.user.enable = true; # Enable Kotz's personal settings.
+
+  ### Extra Packages ###
+
+  environment.systemPackages = with pkgs; [
+    tldr # Quick documentation
+    neofetch # Prints system information to the console
+    appimage-run # Needed to execute AppImages
+  ];
+
+  ### Don't Touch Unless You Know What You're Doing ###
+
+  # Allow unfree packages.
+  nixpkgs.config.allowUnfree = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -69,5 +62,7 @@
   # This reads from a file named "nixos-version", whose contents comprise entirely of the
   # version of NixOS that was originally installed. Example: 23.05
   # This file is automatically created when first_setup.sh is run.
-  system.stateVersion = builtins.replaceStrings [ "\n" " " ] [ "" "" ] (builtins.readFile ./Config/nixos-version);
+  system.stateVersion =
+    builtins.replaceStrings [ "\n" " " ] [ "" "" ]
+      (builtins.readFile ./Config/nixos-version);
 }

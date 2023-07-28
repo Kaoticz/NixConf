@@ -1,7 +1,7 @@
 {
   aliases = {
-    "ls" = "ls --color=auto";
-    "grep" = "grep --color=auto";
+    ls = "ls --color=auto";
+    grep = "grep --color=auto";
   };
 
   bashrc = ''
