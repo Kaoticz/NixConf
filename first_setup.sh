@@ -104,18 +104,19 @@ install_home_manager()
     nix-shell '<home-manager>' -A install
 }
 
-# Gets the current release of Home Manager.
-# Usage: get_home_manager_release
-# Returns: An array where the first element is the update channel and the second element is the version of Home Manager.
-get_home_manager_release()
+# Gets the current release channels of NixOS and Home Manager.
+# Usage: get_release_channels
+# Returns: An array where the first element is the update channel for NixOS, the second element is for Home Manager, and the third element is the version of Home Manager.
+get_release_channels()
 {
+    # I'm trusting that Home Manager's version is synchronized to NixOS'.
     local -r html_content=$(curl -s 'https://nix-community.github.io/home-manager/')
 
     if [[ ! $html_content =~ $HMNGR_REGEX ]]; then
-       fail 1 'install_home_manager' 'Home Manager'\''s update channel was not found. Aborting.'
+       fail 1 'get_release_channels' 'Home Manager'\''s update channel was not found. Aborting.'
     fi
 
-    echo "${BASH_REMATCH[@]}"
+    echo "https://nixos.org/channels/nixos-${matches[1]}" "${BASH_REMATCH[@]}"
 }
 
 # Gets the NixOS release version of the current system.
@@ -173,12 +174,21 @@ if [[ $(command -v home-manager) ]]; then
     echo '> Home Manager detected, skipping installation.'
 else
     echo '> Home Manager not detected. Installing...'
+
+    # Get release channels
     IFS=" "
-    read -ra matches <<< "$(get_home_manager_release)"
-    
-    install_home_manager "${matches[0]}"
+    read -ra matches <<< "$(get_release_channels)"
+
+    # Add NixOS' channel. This is needed due to a bug in the installation
+    # script that prevents the script from adding the channel.
+    nix-channel --add "${matches[0]}" 'nixpkgs'
+
+    # Add Home Manager's channel and install it.
+    install_home_manager "${matches[1]}"
+
+    # Create the version file.
     mkdir -p ./home-manager/Config/
-    echo "${matches[1]}" > ./home-manager/Config/hm-version
+    echo "${matches[2]}" > ./home-manager/Config/hm-version
 fi
 
 echo "> Setup done. Execute './update.sh' to apply the configuration files."

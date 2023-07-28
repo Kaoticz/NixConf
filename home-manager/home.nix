@@ -48,6 +48,7 @@
       (builtins.readFile ./Config/hm-version);
 
   # This is a very basic attempt at activating .desktop files in non-NixOS systems.
+  # A reboot may be necessary after installation.
   # /etc/os-release is not guaranteed to be in every Linux distribution.
   # If you are not using NixOS and programs installed through Nix are not getting an
   # entry in your desktop environment, just set this variable to 'true'.
