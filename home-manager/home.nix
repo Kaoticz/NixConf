@@ -17,8 +17,7 @@
   kotz.git.enable = true; # Git
   kotz.firefox.enable = true; # Firefox
 
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
+  # The home.packages option allows you to install Nix packages into your environment.
   home.packages = with pkgs; [
     tor-browser-bundle-bin # The Tor Browser
   ];
@@ -29,8 +28,7 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # Home Manager needs a bit of information about you and the paths it should
-  # manage.
+  # Home Manager needs a bit of information about you and the paths it should manage.
   home.username = builtins.getEnv "USER";
   home.homeDirectory = builtins.getEnv "HOME";
 
@@ -45,5 +43,16 @@
   # This reads from a file named "hm-version", whose contents comprise entirely of the
   # version of Home Manager that is being used. Example: 23.05
   # This file is automatically created when first_setup.sh is run.
-  home.stateVersion = builtins.replaceStrings [ "\n" " " ] [ "" "" ] (builtins.readFile ./Config/hm-version);
+  home.stateVersion =
+    builtins.replaceStrings [ "\n" " " ] [ "" "" ]
+      (builtins.readFile ./Config/hm-version);
+
+  # This is a very basic attempt at activating .desktop files in non-NixOS systems.
+  # /etc/os-release is not guaranteed to be in every Linux distribution.
+  # If you are not using NixOS and programs installed through Nix are not getting an
+  # entry in your desktop environment, just set this variable to 'true'.
+  targets.genericLinux.enable =
+    !builtins.elem "nixos"
+      (builtins.match ".*\nID=([^\n]+).*"
+        (builtins.readFile /etc/os-release));
 }

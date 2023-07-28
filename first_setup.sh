@@ -137,7 +137,7 @@ get_nixos_release()
 enforce_shell_restart()
 {
     if [[ -f $FLAG_FILE_PATH && ! $(command -v nix-channel) ]]; then
-        fail 1 'enforce_shell_restart' 'Please, restart your terminal and run this script again.'
+        fail 1 'enforce_shell_restart' 'Please, restart your terminal and execute this script again.'
     elif [[ -f $FLAG_FILE_PATH ]]; then
         rm $FLAG_FILE_PATH
     fi

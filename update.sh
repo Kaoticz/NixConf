@@ -133,7 +133,7 @@ fi
 
 if [[ $update_user && ! $update_type =~ $NONE_REGEX ]]; then
     echo '> Applying user configuration.'
-    nix-channel --update && home-manager "$update_type"
+    nix-channel --update && home-manager "$update_type" -b backup
 fi
 
 echo '> Done.'

@@ -4,21 +4,21 @@ let
   bleshBashrcFactory = import ./Settings/bash.blesh.settings.nix;
   supportedEnvs = {
     none = { aliases = { }; bashrc = ""; };
+    gnome = import ./Settings/bash.gnome.settings.nix;
     pantheon = import ./Settings/bash.pantheon.settings.nix { inherit pkgs; };
   };
   baseAliases = {
-    homenix = "nano ~/.config/home-manager/home.nix";
-    cleanupgennix = "home-manager remove-generations";
-    cleanupnix = "nix-collect-garbage && echo -e '\nUse listgennix to list generations and cleanupgennix <ids> to delete one or multiple generations.\n'";
-    listnix = "home-manager packages";
-    listgennix = "home-manager generations";
-    ls = "exa -al --color=always --group-directories-first";
-    nixconf = "sudo nano /etc/nixos/configuration.nix";
+    nixlist = "nix-store -q --references /run/current-system/sw | grep -oP '^\/nix\/store\/[a-zA-Z0-9]+\-\K(.*)$'";
+    nixcleanup = "nix-collect-garbage && echo -e '\nUse homegenlist to list generations and homegenclean <ids> to delete one or multiple generations.\n'";
+    homegenclean = "home-manager remove-generations";
+    homelist = "home-manager packages";
+    homegenlist = "home-manager generations";
     update = "sudo nix-channel --update && sudo nixos-rebuild switch";
     update-home = "nix-channel --update && home-manager switch";
     update-all = "update && update-home";
     rollback-list = "sudo nix-env -p /nix/var/nix/profiles/system --list-generations";
     rollback-clear = "sudo nix-collect-garbage -d";
+    ls = "exa -al --color=always --group-directories-first";
     inithost = "sudo mkdir -p /mnt/host && sudo mount -t virtiofs host-fs /mnt/host";
   };
 in
