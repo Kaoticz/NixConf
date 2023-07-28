@@ -11,10 +11,11 @@ in
   # Options: settings the user can change.
   options.kotz.graphics.de.pantheon = {
     enable = lib.mkEnableOption "Kotz's Pantheon DE configuration.";
+    enableDisplayManager = lib.mkEnableOption "Enables Pantheon's default display manager.";
     autoLoginUser = lib.mkOption {
-      type = lib.types.str;
-      default = "";
-      description = "The user to automatically log on as.";
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+      description = lib.mdDoc "The user to automatically log on as.";
     };
   };
 
@@ -25,7 +26,8 @@ in
     kotz.graphics.x11.autoLoginUser = cfg.autoLoginUser;
 
     # Enable the Pantheon Desktop Environment.
-    services.xserver.displayManager.lightdm.enable = true;
+    services.xserver.displayManager.lightdm.enable = cfg.enableDisplayManager;
+    services.xserver.displayManager.lightdm.greeters.pantheon.enable = cfg.enableDisplayManager;
     services.xserver.desktopManager.pantheon.enable = true;
 
     # Enable Pantheon Tweaks.

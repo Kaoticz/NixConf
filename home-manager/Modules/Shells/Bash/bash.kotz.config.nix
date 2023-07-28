@@ -34,12 +34,12 @@ in
     environment = lib.mkOption {
       type = lib.types.str;
       default = "none";
-      description = "The environments supported by this module.";
+      description = lib.mdDoc "The environments supported by this module.";
     };
     bashrc = lib.mkOption {
       type = lib.types.str;
       default = "";
-      description = "Extra code to be called after environment's bashrc code.";
+      description = lib.mdDoc "Extra code to be called after environment's bashrc code.";
     };
   };
 

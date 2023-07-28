@@ -8,7 +8,7 @@
   # Import Modules
   imports = [
     ./hardware-configuration.nix # Include the results of the hardware scan.
-    ./Modules/all-modules.config.nix #
+    ./Modules/all-modules.config.nix
   ];
 
   ### Configurables ###
@@ -30,6 +30,7 @@
   # Others.
   services.printing.enable = false; # Enable CUPS to print documents.
   services.openssh.enable = false; # Enable OpenSSH.
+  kotz.graphics.de.pantheon.enableDisplayManager = true; # Enable LightDm with Pantheon's greeter.
   kotz.virtualization.docker.enable = true; # Enable Docker.
   kotz.graphics.de.pantheon.enable = true; # Enable Pantheon Desktop Environment.
   kotz.audio.pipewire.enable = true; # Enable Pipewire.

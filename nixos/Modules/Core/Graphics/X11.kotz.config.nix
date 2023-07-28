@@ -10,9 +10,9 @@ in
   options.kotz.graphics.x11 = {
     enable = lib.mkEnableOption "Kotz's X11 configuration.";
     autoLoginUser = lib.mkOption {
-      type = lib.types.str;
-      default = "";
-      description = "The user to automatically log on as.";
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+      description = lib.mdDoc "The user to automatically log on as.";
     };
   };
 
@@ -31,7 +31,7 @@ in
     services.xserver.libinput.enable = true;
 
     # Enable automatic login for the user.
-    services.xserver.displayManager.autoLogin.enable = cfg.autoLoginUser != "";
+    services.xserver.displayManager.autoLogin.enable = cfg.autoLoginUser != null;
     services.xserver.displayManager.autoLogin.user = cfg.autoLoginUser;
   };
 }

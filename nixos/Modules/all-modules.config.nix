@@ -19,7 +19,7 @@
     ./Core/Drivers/spice.kotz.config.nix # Spice-Agent Drivers
 
     # Apps
-    ./Apps/docker.kotz.config.nix # Docker
+    ./Apps/Virtualization/docker.kotz.config.nix # Docker
 
     # Misc
     ./Core/Misc/locale.kotz.config.nix # Localization settings

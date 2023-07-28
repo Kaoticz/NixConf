@@ -12,7 +12,7 @@ in
     hostName = lib.mkOption {
       type = lib.types.str;
       default = "nixos";
-      description = "The name of this computer.";
+      description = lib.mdDoc "The name of this computer.";
     };
   };
 

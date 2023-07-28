@@ -115,21 +115,21 @@ in
 
       # Browser settings (with overrides)
       settings = firefox_hardened_settings // {
-        browser.startup.page = 3;
-        browser.startup.homepage = "about:home";
-        browser.newtabpage.enabled = true;
-        keyword.enabled = true;
-        browser.formfill.enable = true;
-        browser.cache.disk.enable = true;
-        browser.shell.shortcutFavicons = true;
-        browser.download.useDownloadDir = true;
-        browser.download.alwaysOpenPanel = true;
-        privacy.clearOnShutdown.history = false;
-        privacy.clearOnShutdown.sessions = false;
+        "browser.startup.page" = 3;
+        "browser.startup.homepage" = "about:home";
+        "browser.newtabpage.enabled" = true;
+        "keyword.enabled" = true;
+        "browser.formfill.enable" = true;
+        "browser.cache.disk.enable" = true;
+        "browser.shell.shortcutFavicons" = true;
+        "browser.download.useDownloadDir" = true;
+        "browser.download.alwaysOpenPanel" = true;
+        "privacy.clearOnShutdown.history" = false;
+        "privacy.clearOnShutdown.sessions" = false;
 
         # Remove letterboxing. Install the CanvasBlocker extension to mitigate this.
-        privacy.window.maxInnerWidth = null;
-        privacy.window.maxInnerHeight = null;
+        "privacy.window.maxInnerWidth" = null;
+        "privacy.window.maxInnerHeight" = null;
         "privacy.resistFingerprinting.letterboxing" = false;
       };
     };
