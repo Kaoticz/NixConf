@@ -1,6 +1,7 @@
 { lib, pkgs, config, ... }:
 let
   cfg = config.kotz.vscode;
+  extra_vscode_extensions = import ./Settings/vscode.kotz.extensions.nix;
 in
 {
   # Imports: extra modules this module uses.
@@ -21,20 +22,23 @@ in
       shellcheck # Bash analyzer
     ];
 
-    #Install VSCode
+    # Install VSCode.
     programs.vscode.enable = true;
     programs.vscode.enableUpdateCheck = false;
+
+    # Install extensions.
     programs.vscode.extensions = with pkgs; [
-      vscode-extensions.shd101wyy.markdown-preview-enhanced
+      vscode-extensions.firefox-devtools.vscode-firefox-debug
       vscode-extensions.mads-hartmann.bash-ide-vscode
-      vscode-extensions.formulahendry.auto-close-tag
       vscode-extensions.ms-azuretools.vscode-docker
+      vscode-extensions.dbaeumer.vscode-eslint
       vscode-extensions.ms-dotnettools.csharp
       vscode-extensions.timonwong.shellcheck
       vscode-extensions.jnoortheen.nix-ide
       vscode-extensions.eamodio.gitlens
-    ];
+    ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace extra_vscode_extensions;
 
+    # Keybindings.
     programs.vscode.keybindings = [
       {
         "key" = "ctrl+k ctrl+o";
@@ -63,6 +67,7 @@ in
       }
     ];
 
+    # User settings.
     programs.vscode.userSettings = {
       # Editor
       "telemetry.telemetryLevel" = "off";
@@ -119,7 +124,6 @@ in
       # Bash
       "shellcheck.customArgs" = [ "-x" ];
       "shellcheck.exclude" = [
-        "2155"
         "2001"
       ];
 

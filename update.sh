@@ -142,4 +142,4 @@ if [[ $update_user && ! $update_type =~ $NONE_REGEX ]]; then
     nix-channel --update && home-manager "$update_type" -b backup
 fi
 
-echo '> Done. New deskotp entries may require a session restart in order to load.'
+echo "> Done. $([[ $(command -v nixos-version) ]] && echo '' || echo 'New deskotp entries may require a session restart in order to load.')"

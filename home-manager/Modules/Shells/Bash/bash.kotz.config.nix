@@ -9,15 +9,14 @@ let
   };
   baseAliases = {
     nixlist = "nix-store -q --references /run/current-system/sw | grep -oP '^\/nix\/store\/[a-zA-Z0-9]+\-\K(.*)$'";
-    nixcleanup = "nix-collect-garbage && echo -e '\nUse homegenlist to list generations and homegenclean <ids> to delete one or multiple generations.\n'";
-    homegenclean = "home-manager remove-generations";
+    nixgenlist = "sudo nix-env -p /nix/var/nix/profiles/system --list-generations";
+    nixgenclean = "sudo nix-collect-garbage -d && echo -e '\nUse homegenlist to list generations and homegenclean <ids> to delete one or multiple generations.\n'";
     homelist = "home-manager packages";
     homegenlist = "home-manager generations";
+    homegenclean = "home-manager remove-generations";
     update = "sudo nix-channel --update && sudo nixos-rebuild switch";
     update-home = "nix-channel --update && home-manager switch";
     update-all = "update && update-home";
-    rollback-list = "sudo nix-env -p /nix/var/nix/profiles/system --list-generations";
-    rollback-clear = "sudo nix-collect-garbage -d";
     ls = "exa -al --color=always --group-directories-first";
     inithost = "sudo mkdir -p /mnt/host && sudo mount -t virtiofs host-fs /mnt/host";
   };
