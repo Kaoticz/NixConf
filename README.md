@@ -8,12 +8,13 @@ If you're not me, I strongly encourage you to fork this repository and change th
 
 ## Instructions
 
-Execute the `first_setup.sh` script in the terminal to install [Nix] and [Home Manager][HomeManager].
+Execute the `first_setup.sh` script in the terminal to install [Nix] and [Home Manager][HomeManager]. You only need to do this once.
 
 ```bash
 ./first_setup.sh
 ```
-At some point, the script will ask you to restart your terminal, so close your terminal then open it again and execute the script once more.
+
+Reboot your system if you're installing Nix just for your user, otherwise just restart your terminal.
 
 Once installation is complete, you should explore the configuration files and change whatever you like. When you're ready, execute the `update.sh` script to apply the configuration files.
 

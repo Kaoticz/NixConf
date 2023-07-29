@@ -68,7 +68,7 @@ apply_home_config()
 ## Main (Entry Point)
 
 if [[ ! $(command -v nix-channel) ]]; then
-    fail 1 "$0" '> Nix was not detected. Perhaps you need to restart your terminal to reload the Nix envars?'
+    fail 1 "$0" '> Nix was not detected. Perhaps you just installed Nix and need to restart your system to load the Nix variables?'
 fi
 
 # Contains the scope of the update.

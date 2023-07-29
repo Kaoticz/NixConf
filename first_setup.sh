@@ -180,4 +180,7 @@ else
     echo "${matches[2]}" > ./home-manager/Config/hm-version
 fi
 
-echo "> Setup done. Restart your terminal, then use './update.sh' to apply the configuration files."
+device=$([[ "$install_mode" == '--daemon' ]] && echo 'terminal' || echo 'system')
+readonly device
+
+echo "> Setup done. Please, restart your $device, then use './update.sh' to apply the configuration files."
