@@ -28,10 +28,6 @@ declare -r HMNGR_REGEX='https:\/\/github\.com\/nix-community\/home-manager\/arch
 # Warning telling the user to visit https://nixos.org/download.html.
 declare -r CONSULT_NIX='Visit https://nixos.org/download.html if you are not sure.'
 
-# Defines the location of the temporary installation file, used to check
-# if the user restarted the shell after installing Nix.
-declare -r FLAG_FILE_PATH='./.temp'
-
 ## Functions
 
 # Checks if the current OS uses Systemd as its init system.
@@ -134,26 +130,12 @@ get_nixos_release()
     echo "${BASH_REMATCH[0]}"
 }
 
-# Forces the user to restart the shell so the Nix envars get loaded.
-# Usage: enforce_shell_restart
-enforce_shell_restart()
-{
-    if [[ -f $FLAG_FILE_PATH && ! $(command -v nix-channel) ]]; then
-        fail 1 'enforce_shell_restart' 'Please, restart your terminal and execute this script again.'
-    elif [[ -f $FLAG_FILE_PATH ]]; then
-        rm $FLAG_FILE_PATH
-    fi
-}
-
 ## Main (Entry Point)
 
 # Check if the OS is supported.
 if [[ ! $OSTYPE =~ linux && ! $OSTYPE =~ darwin ]]; then
     fail 1 "$0" 'This script is only supported on Linux and MacOS.'
 fi
-
-# Guard against lazy users.
-enforce_shell_restart
 
 # Install the Nix package manager.
 if [[ $(command -v nixos-version) && ! -d './nixos/Config/nixos-version' ]]; then
@@ -170,9 +152,7 @@ else
     sh <(curl -L https://nixos.org/nix/install) "$install_mode"
 
     if [[ $install_mode == '--daemon' ]]; then
-        echo '> Nix installed successfully. Please, restart your terminal and execute this script again.'
-        touch $FLAG_FILE_PATH
-        exit 0
+        source '/etc/profile.d/nix.sh'
     else
         source "$HOME/.nix-profile/etc/profile.d/nix.sh"
     fi
@@ -200,4 +180,4 @@ else
     echo "${matches[2]}" > ./home-manager/Config/hm-version
 fi
 
-echo "> Setup done. Execute './update.sh' to apply the configuration files."
+echo "> Setup done. Restart your terminal, then use './update.sh' to apply the configuration files."
