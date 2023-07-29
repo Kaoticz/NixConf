@@ -76,6 +76,7 @@ is_sudoer()
 # 2) SELinux is not present or disabled.
 # 3) The user has root administrator privileges.
 # If these conditions are not met, Nix can only be installed for the current user.
+# Returns: The installation mode chosen by the user.
 install_nix()
 {
     local option;
@@ -92,6 +93,8 @@ install_nix()
     fi
     
     sh <(curl -L https://nixos.org/nix/install) "$option"
+
+    echo "$option"
 }
 
 # Install Home Manager on the current system.
@@ -162,11 +165,16 @@ elif [[ $(command -v nix-env) ]]; then
     echo '> Nix detected, skipping installation.'
 else
     echo '> Nix was not detected. Installing...'
-    install_nix
+    install_mode=$(install_nix)
+    readonly install_mode
 
-    echo '> Nix installed successfully. Please, restart your terminal and execute this script again.'
-    touch $FLAG_FILE_PATH
-    exit 0
+    if [[ $install_mode == '--daemon' ]]; then
+        echo '> Nix installed successfully. Please, restart your terminal and execute this script again.'
+        touch $FLAG_FILE_PATH
+        exit 0
+    else
+        source "$HOME/.nix-profile/etc/profile.d/nix.sh"
+    fi
 fi
 
 # Install Home Manager
