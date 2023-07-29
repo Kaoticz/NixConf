@@ -1,25 +1,43 @@
 #!/usr/bin/env bash
 
+## Constants
+
+# ANSI red color.
+declare -r RED='\033[0;31m'
+
+# ANSI yellow color.
+declare -r YELLOW='\033[0;33m'
+
+# ANSI default color.
+declare -r RESET_COLOR='\e[0m'
+
 # Prints a warning to stderr.
 # Usage: warn <function_name> <error_message>
 warn()
 {
-    echo "$1: ${*:2}" >&2
+    echo -e "${YELLOW}$1: ${*:2}${RESET_COLOR}" >&2
 }
 
 # Prints a warning to stderr and exits with the specified error code.
 # Usage: fail <error_code> <function_name> <error_message>
 fail()
 {
-    warn "${@:2}"
+    echo -e "${RED}$2: ${*:3}${RESET_COLOR}" >&2
     exit "$1"
+}
+
+# Executes a function, halting execution of the script if errors occur.
+# Usage: fail_if <function_call>
+fail_if()
+{
+    "$@" || fail $? "Error $?" "failed to execute '$*'"
 }
 
 # Safely executes a function, printing errors to stderr but not halting execution of the script.
 # Usage: try <function_call>
 try()
 {
-    "$@" || fail 1 "failed to run '$*'"
+    "$@" || warn "Error $?" "failed to execute '$*'"
 }
 
 # Prompts the user to type something with a message.
