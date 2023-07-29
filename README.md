@@ -14,9 +14,9 @@ Execute the `first_setup.sh` script in the terminal to install [Nix] and [Home M
 ./first_setup.sh
 ```
 
-Reboot your system if you're installing Nix just for your user, otherwise just restart your terminal.
+After installation is complete, reboot your system if you're installing Nix just for your user, otherwise restart your terminal.
 
-Once installation is complete, you should explore the configuration files and change whatever you like. When you're ready, execute the `update.sh` script to apply the configuration files.
+You should then explore the configuration files and change whatever you like. When you're ready, execute the `update.sh` script to apply the configuration files.
 
 ```bash
 ./update.sh
