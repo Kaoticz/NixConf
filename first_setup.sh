@@ -30,7 +30,7 @@ declare -r CONSULT_NIX='Visit https://nixos.org/download.html if you are not sur
 
 # Defines the location of the temporary installation file, used to check
 # if the user restarted the shell after installing Nix.
-declare -r FLAG_FILE_PATH='./temp'
+declare -r FLAG_FILE_PATH='./.temp'
 
 ## Functions
 
@@ -70,14 +70,14 @@ is_sudoer()
     fi
 }
 
-# Installs the Nix package manager on the current system.
+# Gets the appropriate installation mode for Nix.
 # Remarks: Nix can only be installed system-wide if:
 # 1) Systemd is used as the init system.
 # 2) SELinux is not present or disabled.
 # 3) The user has root administrator privileges.
 # If these conditions are not met, Nix can only be installed for the current user.
 # Returns: The installation mode chosen by the user.
-install_nix()
+get_install_mode()
 {
     local option;
     local input;
@@ -91,8 +91,6 @@ install_nix()
         input=$(get_valid_input "> Your system doesn't seem to support a system-wide installaion of Nix. Would you like to proceed anyway and install it just for your current user? $CONSULT_NIX [y/n]: " "$YES_REGEX" "$NO_REGEX")
         [[ ${input,,} =~ $NO_REGEX ]] && fail 1 'install_nix' 'Installation cancelled by the user'
     fi
-    
-    sh <(curl -L https://nixos.org/nix/install) "$option"
 
     echo "$option"
 }
@@ -165,8 +163,11 @@ elif [[ $(command -v nix-env) ]]; then
     echo '> Nix detected, skipping installation.'
 else
     echo '> Nix was not detected. Installing...'
-    install_mode=$(install_nix)
+    install_mode=$(get_install_mode)
     readonly install_mode
+
+    # Install Nix
+    sh <(curl -L https://nixos.org/nix/install) "$install_mode"
 
     if [[ $install_mode == '--daemon' ]]; then
         echo '> Nix installed successfully. Please, restart your terminal and execute this script again.'
