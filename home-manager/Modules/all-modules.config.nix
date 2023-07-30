@@ -3,6 +3,9 @@
 {
   # Import all modules.
   imports = [
+    # Themes
+    ./Themes/gtk.kotz.config.nix
+
     # Development
     ./Development/git.kotz.config.nix
     ./Development/vscode.kotz.config.nix

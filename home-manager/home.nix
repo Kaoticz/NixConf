@@ -6,7 +6,14 @@
     ./Modules/all-modules.config.nix
   ];
 
+  
+
   ### Configurables ###
+
+  # Theme (for Pantheon)
+  kotz.themes.gtk.enable = true;
+  kotz.themes.gtk.darkMode = true;
+  kotz.themes.gtk.themeName = "WhiteSur-Dark";
 
   # Shell.
   kotz.bash.enable = true;
@@ -58,7 +65,10 @@
   # If you are not using NixOS and programs installed through Nix are not getting an
   # entry in your desktop environment, just set this variable to 'true'.
   targets.genericLinux.enable =
-    !builtins.elem "nixos"
-      (builtins.match ".*\nID=([^\n]+).*"
-        (builtins.readFile /etc/os-release));
+    if !builtins.pathExists /etc/os-release
+    then true
+    else
+      !builtins.elem "nixos"
+        (builtins.match ".*\nID=([^\n]+).*"
+          (builtins.readFile /etc/os-release));
 }
