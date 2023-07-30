@@ -11,7 +11,7 @@
   # Theme (for Pantheon)
   kotz.themes.gtk.enable = true;
   kotz.themes.gtk.darkMode = true;
-  kotz.themes.gtk.themeName = "WhiteSur-Dark";
+  kotz.themes.gtk.theme.name = "WhiteSur-Dark";
 
   # Shell.
   kotz.bash.enable = true;

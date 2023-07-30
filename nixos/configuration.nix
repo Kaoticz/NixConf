@@ -14,9 +14,7 @@
   ### Configurables ###
 
   # Kernel Version.
-  boot.kernelPackages = pkgs.linuxPackages_latest.extend (self: super: {
-    kernel = super.kernel // pkgs.linuxKernel.kernels.linux_zen; # Linux Zen Kernel
-  });
+  boot.kernelPackages = pkgs.linuxPackages_zen;
 
   # Enable GnuPG.
   programs.gnupg.agent.enable = true;
@@ -25,7 +23,6 @@
 
   # Enable Flatpaks.
   services.flatpak.enable = true;
-  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
   # Others.
   services.printing.enable = false; # Enable CUPS to print documents.
@@ -52,6 +49,12 @@
 
   # Allow unfree packages.
   nixpkgs.config.allowUnfree = true;
+
+  # Enable Flakes
+  # nix.package = pkgs.nixFlakes;
+  # nix.extraOptions = ''
+  #   experimental-features = nix-command flakes
+  # '';
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

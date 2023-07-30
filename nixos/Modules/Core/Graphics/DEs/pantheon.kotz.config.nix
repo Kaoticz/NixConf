@@ -33,6 +33,11 @@ in
     # Enable Pantheon Tweaks.
     programs.pantheon-tweaks.enable = true;
 
+    # Add XDG Portals
+    xdg.portal.extraPortals = with pkgs; [
+      xdg-desktop-portal-gtk
+    ];
+
     # Add extra packages.
     environment.systemPackages = with pkgs; [
       whitesur-gtk-theme
