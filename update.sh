@@ -68,7 +68,7 @@ apply_home_config()
 ## Main (Entry Point)
 
 if [[ ! $(command -v nix-channel) ]]; then
-    device=$([[ -d '/etc/profile.d/nix.sh' ]] && echo 'terminal' || echo 'system' )
+    device=$([[ -f '/etc/profile.d/nix.sh' ]] && echo 'terminal' || echo 'system' )
     readonly device
     fail 1 "$0" "> Nix was not detected. If you have just installed Nix, please restart your $device to load the Nix variables."
 fi

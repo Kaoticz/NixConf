@@ -6,8 +6,6 @@
     ./Modules/all-modules.config.nix
   ];
 
-  
-
   ### Configurables ###
 
   # Theme (for Pantheon)
