@@ -1,5 +1,7 @@
 { pkgs, ... }:
-
+let
+  bashFunctions = import ./Modules/Shells/Bash/Settings/bash.functions.settings.nix;
+in
 {
   # Import Modules.
   imports = [
@@ -18,16 +20,31 @@
   kotz.bash.enableBlesh = true;
   kotz.bash.enableAliases = true;
   kotz.bash.environment = "pantheon";
+  kotz.bash.bashrc = bashFunctions;
 
   # Others.
   kotz.vscode.enable = true; # VSCode
   kotz.git.enable = true; # Git
   kotz.firefox.enable = true; # Firefox
+  kotz.thunderbird.enable = true; # Thunderbird
 
   ### Extra packages ###
 
   home.packages = with pkgs; [
+    dbeaver # DBeaver Universal Database Manager
+    element-desktop # Element Matrix Client
+    jetbrains.pycharm-community # PyCharm Community
+    mpv # MPV Media Player
+    onlyoffice-bin_7_5 # OnlyOffice Office Suite
     tor-browser-bundle-bin # The Tor Browser
+    tutanota-desktop # Tutanota E-mail Client
+    whatsapp-for-linux # Whatsapp
+
+    # Discord
+    discord
+    betterdiscordctl
+
+    keepassxc # KeepassXC Password Manager
   ];
 
   ### Don't Touch Unless You Know What You're Doing ###

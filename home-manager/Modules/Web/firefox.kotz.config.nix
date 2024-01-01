@@ -92,11 +92,13 @@ in
         darkreader
         flagfox
         gloc
+        keepassxc-browser
         libredirect
         multi-account-containers
         refined-github
         return-youtube-dislikes
         sourcegraph
+        sponsorblock
         temporary-containers
         terms-of-service-didnt-read
         ublock-origin
@@ -107,10 +109,10 @@ in
         youtube-shorts-block
 
         ## Missing
-        # Authenticator
         # Fireshot
         # Github Download Button
-        # Imagus
+      ] ++ [
+        nur.repos.bandithedoge.firefoxAddons.imagus
       ];
 
       # Browser settings (with overrides)
@@ -126,6 +128,7 @@ in
         "browser.download.alwaysOpenPanel" = true;
         "privacy.clearOnShutdown.history" = false;
         "privacy.clearOnShutdown.sessions" = false;
+        "privacy.clearOnShutdown.cookies" = false;
 
         # Remove letterboxing. Install the CanvasBlocker extension to mitigate this.
         "privacy.window.maxInnerWidth" = null;

@@ -16,6 +16,24 @@
   # Kernel Version.
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
+  # Enable zram
+  zramSwap.enable = true;
+  zramSwap.memoryPercent = 75;
+  boot.kernel.sysctl = {
+    "vm.swappiness" = 180;
+    "vm.watermark_boost_factor" = 0;
+    "vm.watermark_scale_factor" = 125;
+    "vm.page-cluster" = 0;
+  };
+
+  # Environment Variables
+  environment.sessionVariables = {
+    XDG_CONFIG_HOME = "$HOME/.config";
+    XDG_CACHE_HOME = "$HOME/.cache";
+    XDG_DATA_HOME = "$HOME/.local/share";
+    XDG_STATE_HOME = "$HOME/.local/state";
+  };
+
   # Enable GnuPG.
   programs.gnupg.agent.enable = true;
   programs.gnupg.agent.enableSSHSupport = true;
@@ -25,13 +43,14 @@
   services.flatpak.enable = true;
 
   # Others.
-  services.printing.enable = false; # Enable CUPS to print documents.
-  services.openssh.enable = false; # Enable OpenSSH.
+  services.printing.enable = true; # Enable CUPS to print documents.
+  services.openssh.enable = true; # Enable OpenSSH.
   kotz.graphics.de.pantheon.enableDisplayManager = true; # Enable LightDm with Pantheon's greeter.
-  kotz.virtualization.docker.enable = true; # Enable Docker.
   kotz.graphics.de.pantheon.enable = true; # Enable Pantheon Desktop Environment.
+  kotz.virtualization.docker.enable = true; # Enable Docker.
+  kotz.patching.nix-alien.enable = true; # Enable execution of unpatched binaries.
   kotz.audio.pipewire.enable = true; # Enable Pipewire.
-  kotz.drivers.spice.enable = true; # Enable KVM drivers.
+  kotz.drivers.spice.enable = false; # Enable KVM guest drivers.
   kotz.networking.enable = true; # Enable personal networking settings.
   kotz.boot.grub.enable = true; # Enable Grub.
   kotz.locale.enable = true; # Enable personal locale settings.
@@ -40,9 +59,10 @@
   ### Extra Packages ###
 
   environment.systemPackages = with pkgs; [
-    tldr # Quick documentation
-    neofetch # Prints system information to the console
     appimage-run # Needed to execute AppImages
+    neofetch # Prints system information to the console
+    ripgrep # Quick grep
+    tldr # Quick documentation
   ];
 
   ### Don't Touch Unless You Know What You're Doing ###
@@ -51,10 +71,7 @@
   nixpkgs.config.allowUnfree = true;
 
   # Enable Flakes
-  # nix.package = pkgs.nixFlakes;
-  # nix.extraOptions = ''
-  #   experimental-features = nix-command flakes
-  # '';
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

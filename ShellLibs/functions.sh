@@ -40,6 +40,15 @@ try()
     "$@" || warn "Error $?" "failed to execute '$*'"
 }
 
+# Deletes the file or folder at the specified path.
+# Usage: delete_if_exists <path>
+delete_if_exists()
+{
+    if [[ -f $* ]] || [[ -d $* ]]; then
+        rm -rf "$*"
+    fi
+}
+
 # Prompts the user to type something with a message.
 # Usage: get_input <message>
 # Returns: a string with the user's input.

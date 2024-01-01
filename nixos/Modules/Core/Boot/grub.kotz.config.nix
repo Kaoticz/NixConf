@@ -13,8 +13,13 @@ in
 
   # Config: things that must be done if this module is enabled.
   config = lib.mkIf cfg.enable {
+    boot.loader.timeout = 3;
+    boot.loader.efi.canTouchEfiVariables = true;
+    boot.loader.efi.efiSysMountPoint = "/boot";
+
     boot.loader.grub.enable = true;
-    boot.loader.grub.device = "/dev/vda";
+    boot.loader.grub.efiSupport = true;
+    boot.loader.grub.device = "nodev";
     boot.loader.grub.useOSProber = true;
   };
 }

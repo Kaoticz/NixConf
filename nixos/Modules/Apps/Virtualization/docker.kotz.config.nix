@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, config, pkgs, ... }:
 let
   cfg = config.kotz.virtualization.docker;
 in
@@ -15,5 +15,10 @@ in
   config = lib.mkIf cfg.enable {
     virtualisation.docker.enable = true;
     virtualisation.docker.rootless.enable = true;
+    virtualisation.docker.rootless.setSocketVariable = true;
+
+    environment.systemPackages = with pkgs; [
+      docker-compose
+    ];
   };
 }

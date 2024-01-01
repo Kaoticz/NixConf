@@ -14,11 +14,10 @@ let
     homelist = "home-manager packages";
     homegenlist = "home-manager generations";
     homegenclean = "home-manager remove-generations";
-    update = "sudo nix-channel --update && sudo nixos-rebuild switch";
+    update-root = "sudo nix-channel --update && sudo nixos-rebuild switch";
     update-home = "nix-channel --update && home-manager switch";
-    update-all = "update && update-home";
-    ls = "exa -al --color=always --group-directories-first";
-    inithost = "sudo mkdir -p /mnt/host && sudo mount -t virtiofs host-fs /mnt/host";
+    update = "update-root && update-home";
+    #inithost = "sudo mkdir -p /mnt/host && sudo mount -t virtiofs host-fs /mnt/host";
   };
 in
 {
@@ -47,10 +46,10 @@ in
     # Install packages
     home.packages = with pkgs;
       if cfg.enableBlesh
-      then [ exa blesh ]
+      then [ eza blesh ]
       else
         if cfg.enableAliases
-        then [ exa ]
+        then [ eza ]
         else [ ];
 
     # Setup Bash

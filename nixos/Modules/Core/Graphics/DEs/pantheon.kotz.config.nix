@@ -39,18 +39,28 @@ in
     ];
 
     # Add extra packages.
+    #services.transmission.enable = true;
+
     environment.systemPackages = with pkgs; [
-      whitesur-gtk-theme
-      gnome.gnome-system-monitor
+      appeditor
       gnome.gnome-calculator
+      gnome.gnome-clocks
+      monitor
+      transmission_4-gtk
+      whitesur-gtk-theme
     ];
 
     # Exclude some Pantheon packages.
     environment.pantheon.excludePackages = with pkgs; [
       pantheon.epiphany
       pantheon.elementary-tasks
-      pantheon.elementary-camera
       pantheon.elementary-calculator
+      pantheon.elementary-mail
+      pantheon.elementary-music
+      pantheon.elementary-videos
+      pantheon.elementary-feedback
+      pantheon.elementary-calendar
+      pantheon.elementary-onboarding
     ];
   };
 }

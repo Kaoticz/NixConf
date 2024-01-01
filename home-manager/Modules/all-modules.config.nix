@@ -12,6 +12,7 @@
 
     # Web
     ./Web/firefox.kotz.config.nix
+    ./Web/thunderbird.kotz.config.nix
 
     # Shells
     ./Shells/Bash/bash.kotz.config.nix

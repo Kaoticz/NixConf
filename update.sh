@@ -139,6 +139,11 @@ fi
 
 if [[ $update_user && ! $update_type =~ $NONE_REGEX ]]; then
     echo '> Applying user configuration.'
+
+    # Remove the old Firefox profile backup, if it exists
+    delete_if_exists "${HOME}/.mozilla/firefox/${USER}/search.json.mozlz4.backup"
+    delete_if_exists "${HOME}/.mozilla/firefox/insecure/search.json.mozlz4.backup"
+
     nix-channel --update && home-manager "$update_type" -b backup
 fi
 

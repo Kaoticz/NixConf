@@ -20,6 +20,7 @@
 
     # Apps
     ./Apps/Virtualization/docker.kotz.config.nix # Docker
+    ./Apps/Patching/nix-alien.kotz.config.nix # nix-alien
 
     # Misc
     ./Core/Misc/locale.kotz.config.nix # Localization settings
