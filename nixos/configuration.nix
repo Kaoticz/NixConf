@@ -21,18 +21,6 @@
     DefaultTimeoutStopSec=15s
   '';
 
-  # Enable zram
-  zramSwap.enable = true;
-  zramSwap.memoryPercent = 75;
-  boot.kernel.sysctl = {
-    "vm.swappiness" = 180;
-    "vm.watermark_boost_factor" = 0;
-    "vm.watermark_scale_factor" = 125;
-    "vm.page-cluster" = 0;
-  };
-
-
-
   # Enable GnuPG.
   programs.gnupg.agent.enable = true;
   programs.gnupg.agent.enableSSHSupport = true;
@@ -55,6 +43,7 @@
   kotz.locale.enable = true; # Enable personal locale settings.
   kotz.envars.enable = true; # Set Kotz's global environment variables.
   kotz.user.enable = true; # Enable Kotz's personal settings.
+  kotz.zram.enable = true; # Enable Kotz's zram.
 
   ### Extra Packages ###
 

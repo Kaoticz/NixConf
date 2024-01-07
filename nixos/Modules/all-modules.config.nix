@@ -26,6 +26,7 @@
     ./Core/Misc/envars.kotz.config.nix # Environment variables
     ./Core/Misc/locale.kotz.config.nix # Localization settings
     ./Core/Misc/network.kotz.config.nix # Networking settings
+    ./Core/Misc/zram.kotz.config.nix # Zram settings
 
     # Dependencies
     ./Dependencies/nur.config.nix # Nix User Repository

@@ -23,6 +23,11 @@ in
       shellcheck # Bash analyzer
     ];
 
+    # Add to PATH.
+    home.sessionPath = [
+      "/home/${config.home.username}/.dotnet/tools" # Add .NET tools
+    ];
+
     # Install VSCode.
     programs.vscode.enable = true;
     programs.vscode.enableUpdateCheck = false;
