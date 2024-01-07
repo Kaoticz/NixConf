@@ -93,9 +93,9 @@ update_type=$(
 # Values: switch, build, or none
 update_type=$(
     case "${update_type,,}" in
-        s|switch) echo "switch" ;;
-        b|build) echo 'build'   ;;
-        n|none) echo 'none'     ;;
+        s|switch) echo "switch"                 ;;
+        b|build) echo 'build' ;;
+        n|none) echo 'none'                     ;;
         *) fail 1 "$0" "Failed parsing 'update_type'. Value: $update_type"    ;;
     esac
 )
@@ -133,16 +133,17 @@ fi
 # Updating system
 
 if [[ $update_root && ! $update_type =~ $NONE_REGEX && ! $(sudo -v) ]]; then
-    echo '> Applying root configuration.'
+    announce '> Applying root configuration.'
     sudo nix-channel --update && sudo nixos-rebuild "$update_type"
 fi
 
 if [[ $update_user && ! $update_type =~ $NONE_REGEX ]]; then
-    echo '> Applying user configuration.'
+    announce '> Applying user configuration.'
 
-    # Remove the old Firefox profile backup, if it exists
-    delete_if_exists "${HOME}/.mozilla/firefox/${USER}/search.json.mozlz4.backup"
+    # Remove the old Firefox profile backups, if they exist.
     delete_if_exists "${HOME}/.mozilla/firefox/insecure/search.json.mozlz4.backup"
+    delete_if_exists "${HOME}/.mozilla/firefox/${USER}/search.json.mozlz4.backup"
+    delete_if_exists "${HOME}/.mozilla/firefox/ephemeral/search.json.mozlz4.backup"    
 
     nix-channel --update && home-manager "$update_type" -b backup
 fi

@@ -8,8 +8,18 @@ declare -r RED='\033[0;31m'
 # ANSI yellow color.
 declare -r YELLOW='\033[0;33m'
 
+# ANSI blue color.
+declare -r BLUE='\033[0;34m'
+
 # ANSI default color.
 declare -r RESET_COLOR='\e[0m'
+
+# Prints a message colored in blue to stdout.
+# Usage: announce <message>
+announce()
+{
+    echo -e "${BLUE}${*}${RESET_COLOR}"
+}
 
 # Prints a warning to stderr.
 # Usage: warn <function_name> <error_message>

@@ -23,6 +23,7 @@
     ./Apps/Patching/nix-alien.kotz.config.nix # nix-alien
 
     # Misc
+    ./Core/Misc/envars.kotz.config.nix # Environment variables
     ./Core/Misc/locale.kotz.config.nix # Localization settings
     ./Core/Misc/network.kotz.config.nix # Networking settings
 

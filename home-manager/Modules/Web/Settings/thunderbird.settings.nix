@@ -164,6 +164,7 @@ config:
   "mail.startup.enabledMailCheckOnce" = true;
   "mailnews.database.global.datastore.id" = "c65b128a-bc49-4ac3-a4e0-1097e117c10";
   "mailnews.mark_message_read.delay" = true;
+  "mailnews.mark_message_read.delay.interval" = 3;
   "mailnews.tags.$label1.color" = "#FF0000";
   "mailnews.tags.$label1.tag" = "Important";
   "mailnews.tags.$label2.color" = "#FF9900";

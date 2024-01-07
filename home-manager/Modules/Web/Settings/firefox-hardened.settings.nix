@@ -448,7 +448,7 @@
   "privacy.clearOnShutdown.cache" = true;
   "privacy.clearOnShutdown.downloads" = true;
   "privacy.clearOnShutdown.formdata" = true;
-  "privacy.clearOnShutdown.history" = false;
+  "privacy.clearOnShutdown.history" = true;
   "privacy.clearOnShutdown.sessions" = true;
   "privacy.clearOnShutdown.siteSettings" = false;
   "privacy.clearOnShutdown.openWindows" = false; # If true, this prevents resuming from crashes

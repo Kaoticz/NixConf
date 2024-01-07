@@ -39,10 +39,9 @@ in
     ];
 
     # Add extra packages.
-    #services.transmission.enable = true;
-
     environment.systemPackages = with pkgs; [
       appeditor
+      baobab
       gnome.gnome-calculator
       gnome.gnome-clocks
       monitor

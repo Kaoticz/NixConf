@@ -34,17 +34,20 @@ in
     dbeaver # DBeaver Universal Database Manager
     element-desktop # Element Matrix Client
     jetbrains.pycharm-community # PyCharm Community
+    keepassxc # KeepassXC Password Manager
+    libsForQt5.kolourpaint # Kolourpaint
     mpv # MPV Media Player
     onlyoffice-bin_7_5 # OnlyOffice Office Suite
     tor-browser-bundle-bin # The Tor Browser
     tutanota-desktop # Tutanota E-mail Client
     whatsapp-for-linux # Whatsapp
+    filezilla # Filezilla SFTP client
 
     # Discord
     discord
     betterdiscordctl
 
-    keepassxc # KeepassXC Password Manager
+    # podman-desktop # Podman Desktop (very outdated package)
   ];
 
   ### Don't Touch Unless You Know What You're Doing ###

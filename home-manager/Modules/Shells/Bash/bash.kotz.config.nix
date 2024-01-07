@@ -10,7 +10,7 @@ let
   baseAliases = {
     nixlist = "nix-store -q --references /run/current-system/sw | grep -oP '^\/nix\/store\/[a-zA-Z0-9]+\-\K(.*)$'";
     nixgenlist = "sudo nix-env -p /nix/var/nix/profiles/system --list-generations";
-    nixgenclean = "sudo nix-collect-garbage -d && echo -e '\nUse homegenlist to list generations and homegenclean <ids> to delete one or multiple generations.\n'";
+    nixgenclean = "sudo nix-collect-garbage -d && nix-collect-garbage -d && echo -e '\nUse homegenlist to list generations and homegenclean <ids> to delete one or multiple generations.\n'";
     homelist = "home-manager packages";
     homegenlist = "home-manager generations";
     homegenclean = "home-manager remove-generations";

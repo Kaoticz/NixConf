@@ -16,6 +16,11 @@
   # Kernel Version.
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
+  # Define systemd settings,
+  systemd.extraConfig = ''
+    DefaultTimeoutStopSec=15s
+  '';
+
   # Enable zram
   zramSwap.enable = true;
   zramSwap.memoryPercent = 75;
@@ -26,13 +31,7 @@
     "vm.page-cluster" = 0;
   };
 
-  # Environment Variables
-  environment.sessionVariables = {
-    XDG_CONFIG_HOME = "$HOME/.config";
-    XDG_CACHE_HOME = "$HOME/.cache";
-    XDG_DATA_HOME = "$HOME/.local/share";
-    XDG_STATE_HOME = "$HOME/.local/state";
-  };
+
 
   # Enable GnuPG.
   programs.gnupg.agent.enable = true;
@@ -54,12 +53,14 @@
   kotz.networking.enable = true; # Enable personal networking settings.
   kotz.boot.grub.enable = true; # Enable Grub.
   kotz.locale.enable = true; # Enable personal locale settings.
+  kotz.envars.enable = true; # Set Kotz's global environment variables.
   kotz.user.enable = true; # Enable Kotz's personal settings.
 
   ### Extra Packages ###
 
   environment.systemPackages = with pkgs; [
     appimage-run # Needed to execute AppImages
+    fontconfig # A library for font customization and configuration
     neofetch # Prints system information to the console
     ripgrep # Quick grep
     tldr # Quick documentation
@@ -70,8 +71,11 @@
   # Allow unfree packages.
   nixpkgs.config.allowUnfree = true;
 
-  # Enable Flakes
+  # Enable Flakes.
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  # Optimize the store on every build.
+  nix.settings.auto-optimise-store = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
