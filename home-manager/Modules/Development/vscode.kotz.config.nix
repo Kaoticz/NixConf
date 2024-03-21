@@ -106,6 +106,7 @@ in
     # User settings.
     programs.vscode.userSettings = {
       # Editor
+      "update.mode" = "none";
       "telemetry.telemetryLevel" = "off";
       "workbench.colorTheme" = "Visual Studio 2019 Dark";
       "workbench.preferredDarkColorTheme" = "Visual Studio 2019 Dark";
