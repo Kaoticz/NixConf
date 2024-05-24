@@ -43,12 +43,13 @@ in
       ms-vscode.makefile-tools
 
       # C#
-      (ms-dotnettools.csdevkit.overrideAttrs (_: { sourceRoot = "./extension"; }))
-      (ms-dotnettools.vscodeintellicode-csharp.overrideAttrs (_: { sourceRoot = "./extension"; }))
       adrianwilczynski.namespace
+      AvaloniaTeam.vscode-avalonia
       fernandoescolar.vscode-solution-explorer
       fireside21.cshtml
       k--kato.docomment
+      ms-dotnettools.csdevkit
+      ms-dotnettools.vscodeintellicode-csharp
       ms-dotnettools.csharp
       ms-dotnettools.vscode-dotnet-runtime
       patcx.vscode-nuget-gallery
@@ -65,13 +66,13 @@ in
       ecmel.vscode-html-css
       firefox-devtools.vscode-firefox-debug
       html-validate.vscode-html-validate
-      ms-azuretools.vscode-docker
 
       # Markdown
       shd101wyy.markdown-preview-enhanced
 
       # Tools
-      rangav.vscode-thunder-client
+      rangav.vscode-thunder-client  # API Testing
+      ms-azuretools.vscode-docker   # Docker
     ];
 
     # Keybindings.
@@ -118,6 +119,7 @@ in
       "diffEditor.ignoreTrimWhitespace" = false;
       "editor.fontFamily" = "'Consolas', 'monospace', monospace, 'Droid Sans Fallback'";
       "editor.bracketPairColorization.enabled" = false;
+      "editor.acceptSuggestionOnCommitCharacter" = false;
       "editor.formatOnPaste" = true;
       "editor.formatOnType" = true;
       "editor.fontSize" = 14;
@@ -148,16 +150,14 @@ in
       "csharp.suppressHiddenDiagnostics" = false;
       "dotnetAcquisitionExtension.enableTelemetry" = false;
       "omnisharp.enableEditorConfigSupport" = true;
+      "omnisharp.enableDecompilationSupport" = true;
       "omnisharp.useModernNet" = true;
-      #"dotnet.dotnetPath" = "/home/${config.home.username}/.nix-profile/bin/dotnet";
-      #"omnisharp.sdkPath" = "/home/${config.home.username}/.nix-profile/bin/dotnet";
-      #"dotnet.preferCSharpExtension" = false;
-      # "dotnetAcquisitionExtension.existingDotnetPath" = [
-      #   {
-      #     "extensionId" = "ms-dotnettools.csdevkit";
-      #     "path" = "/home/${config.home.username}/.nix-profile/bin/dotnet";
-      #   }
-      # ];
+      "dotnetAcquisitionExtension.existingDotnetPath" = [
+        {
+          "extensionId" = "AvaloniaTeam.vscode-avalonia";
+          "path" = "/home/${config.home.username}/.nix-profile/bin/dotnet";
+        }
+      ];
       "NugetGallery.sources" = [
         "{\"name\": \"nuget.org\",\"url\": \"https://api.nuget.org/v3/index.json\"}"
       ];
