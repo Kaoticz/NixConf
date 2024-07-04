@@ -27,6 +27,7 @@ in
   kotz.git.enable = true; # Git
   kotz.firefox.enable = true; # Firefox
   kotz.thunderbird.enable = true; # Thunderbird
+  programs.obs-studio.enable = true; # OBS
 
   ### Extra packages ###
 

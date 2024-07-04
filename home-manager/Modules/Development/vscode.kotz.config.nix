@@ -44,14 +44,14 @@ in
 
       # C#
       adrianwilczynski.namespace
-      AvaloniaTeam.vscode-avalonia
+      avaloniateam.vscode-avalonia
       fernandoescolar.vscode-solution-explorer
       fireside21.cshtml
       k--kato.docomment
       ms-dotnettools.csdevkit
-      ms-dotnettools.vscodeintellicode-csharp
-      ms-dotnettools.csharp
-      ms-dotnettools.vscode-dotnet-runtime
+      #ms-dotnettools.vscodeintellicode-csharp
+      #ms-dotnettools.csharp
+      #ms-dotnettools.vscode-dotnet-runtime
       patcx.vscode-nuget-gallery
 
       # Python
@@ -71,8 +71,8 @@ in
       shd101wyy.markdown-preview-enhanced
 
       # Tools
-      rangav.vscode-thunder-client  # API Testing
-      ms-azuretools.vscode-docker   # Docker
+      rangav.vscode-thunder-client # API Testing
+      ms-azuretools.vscode-docker # Docker
     ];
 
     # Keybindings.

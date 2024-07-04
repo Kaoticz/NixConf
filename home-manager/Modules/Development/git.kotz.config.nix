@@ -20,6 +20,7 @@ in
     programs.git.signing.signByDefault = true;
     programs.git.extraConfig.pull.rebase = true;
     programs.git.extraConfig.rerere.enabled = true;
+    programs.git.extraConfig.init.defaultbranch = "main";
     #programs.git.signing.gpgPath = "/usr/bin/gpg"; # Use this if you can't install GnuPG through Nix.
   };
 }
