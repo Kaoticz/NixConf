@@ -98,6 +98,7 @@ install_home_manager()
 {
     nix-channel --add "$*" 'home-manager'
     nix-channel --update
+    export NIX_PATH="${HOME}/.nix-defexpr/channels:${NIX_PATH}"
     nix-shell '<home-manager>' -A install
 }
 
