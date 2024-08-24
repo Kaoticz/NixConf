@@ -18,7 +18,7 @@ in
     boot.loader.efi.efiSysMountPoint = "/boot";
 
     boot.loader.grub.enable = true;
-    boot.loader.grub.efiSupport = true;
+    boot.loader.grub.efiSupport = builtins.pathExists "/sys/firmware/efi";
     boot.loader.grub.device = "nodev";
     boot.loader.grub.useOSProber = true;
   };

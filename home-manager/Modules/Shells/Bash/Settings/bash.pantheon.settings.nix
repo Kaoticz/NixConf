@@ -4,6 +4,7 @@
   # Define aliases
   aliases = {
     homenix = "io.elementary.code ~/.config/home-manager/home.nix & disown";
+    wingpanel = "io.elementary.wingpanel > /dev/null 2>&1 & disown";
   };
 
   # Define the bashrc for Pantheon DE

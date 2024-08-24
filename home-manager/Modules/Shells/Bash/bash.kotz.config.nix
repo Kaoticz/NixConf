@@ -8,6 +8,7 @@ let
     pantheon = import ./Settings/bash.pantheon.settings.nix { inherit pkgs; };
   };
   baseAliases = {
+    # System aliases
     nixlist = "nix-store -q --references /run/current-system/sw | grep -oP '^\/nix\/store\/[a-zA-Z0-9]+\-\K(.*)$'";
     nixgenlist = "sudo nix-env -p /nix/var/nix/profiles/system --list-generations";
     nixgenclean = "sudo nix-collect-garbage -d && nix-collect-garbage -d && echo -e '\nUse homegenlist to list generations and homegenclean <ids> to delete one or multiple generations.\n'";
@@ -17,6 +18,9 @@ let
     update-root = "sudo nix-channel --update && sudo nixos-rebuild switch";
     update-home = "nix-channel --update && home-manager switch";
     update = "update-root && update-home";
+
+    # Other aliases
+    neofetch = "fastfetch";
     #inithost = "sudo mkdir -p /mnt/host && sudo mount -t virtiofs host-fs /mnt/host";
   };
 in

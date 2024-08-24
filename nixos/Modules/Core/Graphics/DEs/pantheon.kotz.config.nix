@@ -36,6 +36,7 @@ in
     # Add XDG Portals
     xdg.portal.extraPortals = with pkgs; [
       xdg-desktop-portal-gtk
+      pantheon.xdg-desktop-portal-pantheon
     ];
 
     # Add extra packages.

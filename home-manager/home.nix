@@ -32,21 +32,20 @@ in
   ### Extra packages ###
 
   home.packages = with pkgs; [
-    dbeaver # DBeaver Universal Database Manager
+    dbeaver-bin # DBeaver Universal Database Manager
     element-desktop # Element Matrix Client
     jetbrains.pycharm-community # PyCharm Community
+    jetbrains.idea-community # PyCharm Community
     keepassxc # KeepassXC Password Manager
     libsForQt5.kolourpaint # Kolourpaint
     mpv # MPV Media Player
-    onlyoffice-bin_7_5 # OnlyOffice Office Suite
+    onlyoffice-bin_latest # OnlyOffice Office Suite
     tor-browser-bundle-bin # The Tor Browser
     tutanota-desktop # Tutanota E-mail Client
     whatsapp-for-linux # Whatsapp
     filezilla # Filezilla SFTP client
-
-    # Discord
-    discord
-    betterdiscordctl
+    vesktop # Discord
+    localsend # LocalSend
 
     # podman-desktop # Podman Desktop (very outdated package)
   ];

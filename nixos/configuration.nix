@@ -24,7 +24,7 @@
   # Enable GnuPG.
   programs.gnupg.agent.enable = true;
   programs.gnupg.agent.enableSSHSupport = true;
-  programs.gnupg.agent.pinentryFlavor = "gnome3";
+  programs.gnupg.agent.pinentryPackage = pkgs.pinentry-gnome3;
 
   # Enable Flatpaks.
   services.flatpak.enable = true;
@@ -50,9 +50,14 @@
   environment.systemPackages = with pkgs; [
     appimage-run # Needed to execute AppImages
     fontconfig # A library for font customization and configuration
-    neofetch # Prints system information to the console
+    fastfetch # Prints system information to the console
     ripgrep # Quick grep
     tldr # Quick documentation
+  ];
+
+  # Open Firewall ports for specific applications
+  networking.firewall.allowedTCPPorts = [
+    53317 # LocalSend
   ];
 
   ### Don't Touch Unless You Know What You're Doing ###

@@ -22,16 +22,16 @@ in
     services.xserver.enable = true;
 
     # Configure keymap in X11
-    services.xserver = {
+    services.xserver.xkb = {
       layout = "br";
-      xkbVariant = "";
+      variant = "";
     };
 
     # Enable touchpad support (enabled by default in most desktop managers).
-    services.xserver.libinput.enable = true;
+    services.libinput.enable = true;
 
     # Enable automatic login for the user.
-    services.xserver.displayManager.autoLogin.enable = cfg.autoLoginUser != null;
-    services.xserver.displayManager.autoLogin.user = cfg.autoLoginUser;
+    services.displayManager.autoLogin.enable = cfg.autoLoginUser != null;
+    services.displayManager.autoLogin.user = cfg.autoLoginUser;
   };
 }

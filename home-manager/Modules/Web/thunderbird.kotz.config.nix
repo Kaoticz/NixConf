@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ pkgs, lib, config, ... }:
 let
   cfg = config.kotz.thunderbird;
   settingsFactory = import ./Settings/thunderbird.settings.nix;
@@ -16,7 +16,7 @@ in
   config = lib.mkIf cfg.enable {
     # Install Betterbird
     programs.thunderbird.enable = true;
-    #programs.thunderbird.package = pkgs.betterbird;
+    programs.thunderbird.package = pkgs.betterbird;
 
     # Profile settings
     programs.thunderbird.profiles.${config.home.username} = {
