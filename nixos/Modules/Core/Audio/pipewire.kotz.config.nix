@@ -13,7 +13,6 @@ in
 
   # Config: things that must be done if this module is enabled.
   config = lib.mkIf cfg.enable {
-    sound.enable = true;
     hardware.pulseaudio.enable = false;
     security.rtkit.enable = true;
     services.pipewire = {

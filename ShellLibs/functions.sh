@@ -70,8 +70,8 @@ get_input()
 
 # Prompts the user to type a message that meets one or more patterns.
 # Usage get_valid_input <message> <expected_patterns...>
-# Remarks: this function requires at least 2 arguments (the message and one valid input).
-# Returns: a string with the user's input or error code 3 - see Remarks.
+# Remarks: this function requires at least 2 arguments (the message and one valid pattern).
+# Returns: a string with the user's input or error code 1 - see Remarks.
 get_valid_input()
 {
     if (( $# <= 1 )); then

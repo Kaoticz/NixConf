@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, config, pkgs, ... }:
 let
   cfg = config.kotz.graphics.x11;
 in
@@ -26,6 +26,11 @@ in
       layout = "br";
       variant = "";
     };
+
+    # Add extra packages.
+    environment.systemPackages = with pkgs; [
+      xorg.xhost
+    ];
 
     # Enable touchpad support (enabled by default in most desktop managers).
     services.libinput.enable = true;

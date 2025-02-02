@@ -35,19 +35,18 @@ in
     dbeaver-bin # DBeaver Universal Database Manager
     element-desktop # Element Matrix Client
     jetbrains.pycharm-community # PyCharm Community
-    jetbrains.idea-community # PyCharm Community
+    jetbrains.idea-community # Intellij Idea Community
+    jetbrains.rider # Rider
     keepassxc # KeepassXC Password Manager
     libsForQt5.kolourpaint # Kolourpaint
     mpv # MPV Media Player
     onlyoffice-bin_latest # OnlyOffice Office Suite
     tor-browser-bundle-bin # The Tor Browser
     tutanota-desktop # Tutanota E-mail Client
-    whatsapp-for-linux # Whatsapp
     filezilla # Filezilla SFTP client
     vesktop # Discord
     localsend # LocalSend
-
-    # podman-desktop # Podman Desktop (very outdated package)
+    yt-dlp # Youtube CLI tool
   ];
 
   ### Don't Touch Unless You Know What You're Doing ###

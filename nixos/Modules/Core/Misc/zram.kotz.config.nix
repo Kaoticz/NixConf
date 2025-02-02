@@ -14,7 +14,7 @@ in
   # Config: things that must be done if this module is enabled.
   config = lib.mkIf cfg.enable {
     zramSwap.enable = true;
-    zramSwap.memoryPercent = 75;
+    zramSwap.memoryPercent = 100;
     boot.kernel.sysctl = {
       "vm.swappiness" = 180;
       "vm.watermark_boost_factor" = 0;

@@ -19,6 +19,15 @@ let
     update-home = "nix-channel --update && home-manager switch";
     update = "update-root && update-home";
 
+    # C# aliases
+    csharp = "csharprepl";
+    ef-add = "dotnet ef migrations add ";
+    ef-remove = "dotnet ef migrations remove ";
+    ef-update = "dotnet ef database update";
+
+    # Docker aliases
+    docker-purge = "docker system prune --all --volumes --force && docker volume rm $(docker volume ls -q)";
+
     # Other aliases
     neofetch = "fastfetch";
     #inithost = "sudo mkdir -p /mnt/host && sudo mount -t virtiofs host-fs /mnt/host";

@@ -90,6 +90,7 @@ in
         behave
         canvasblocker # Install this if you're not using RFP or letterboxing.
         darkreader
+        don-t-fuck-with-paste
         flagfox
         gloc
         keepassxc-browser

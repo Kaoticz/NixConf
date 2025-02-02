@@ -30,9 +30,6 @@ in
     services.xserver.displayManager.lightdm.greeters.pantheon.enable = cfg.enableDisplayManager;
     services.xserver.desktopManager.pantheon.enable = true;
 
-    # Enable Pantheon Tweaks.
-    programs.pantheon-tweaks.enable = true;
-
     # Add XDG Portals
     xdg.portal.extraPortals = with pkgs; [
       xdg-desktop-portal-gtk
@@ -43,9 +40,11 @@ in
     environment.systemPackages = with pkgs; [
       appeditor
       baobab
+      emacsPackages.whaler
       gnome.gnome-calculator
       gnome.gnome-clocks
       monitor
+      pantheon-tweaks
       transmission_4-gtk
       whitesur-gtk-theme
     ];

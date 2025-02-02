@@ -16,7 +16,7 @@ in
   config = lib.mkIf cfg.enable {
     # Install packages
     home.packages = with pkgs; [
-      dotnet-sdk_8 # .NET 8
+      dotnet-sdk_9 # .NET 9
       nil # Nix LSP server
       nixpkgs-fmt # Nix code formatter
       python3 # CPython

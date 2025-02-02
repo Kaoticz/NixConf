@@ -42,7 +42,7 @@
   kotz.boot.grub.enable = true; # Enable Grub.
   kotz.locale.enable = true; # Enable personal locale settings.
   kotz.envars.enable = true; # Set Kotz's global environment variables.
-  kotz.user.enable = true; # Enable Kotz's personal settings.
+  kotz.user.enable = true; # Enable Kotz's personal user settings.
   kotz.zram.enable = true; # Enable Kotz's zram.
 
   ### Extra Packages ###
